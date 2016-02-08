@@ -1,3 +1,5 @@
+'use-strict';
+
 module.exports = function(grunt) {
 
       require('load-grunt-tasks')(grunt);
@@ -13,23 +15,37 @@ module.exports = function(grunt) {
       grunt.initConfig({
             pkg: grunt.file.readJSON('package.json'),
 
-            //cleaning the distribution directory
-            clean: ['dist'],
+            //configurable paths
+            dirs: {
+                  client: require('./bower.json').appPath || 'client',
+                  server: 'server',
+                  dist: 'dist'
+            },
 
-            //babel to convert es6 to usable es5
-            babel: {
-                  options: {
-                        sourceMap: true,
-                        presets: ['es2015'],
-                        modules: 'common'
-                  },
+            //cleaning the distribution directory
+            clean: {
                   dist: {
                         files: [{
-                              expand: true,
-                              cwd: 
+                              src: ['<%= dirs.dist']
                         }]
-                  }
-            }
+                  },
+                  server: '.tmp'
+            },
+
+
+            //babel to convert es6 to usable es5
+            // babel: {
+            //       options: {
+            //             sourceMap: true,
+            //             presets: ['es2015'],
+            //             modules: 'common'
+            //       },
+            //       client: {
+            //             files: [{
+            //                   expand: true,
+            //             }]
+            //       },
+            // }
 
             //concatenates all the js files together
             concat: {
@@ -39,9 +55,9 @@ module.exports = function(grunt) {
                   },
                   dist: {
                         //source files to concatenate
-                        src: ['./src/**/*.js'],
+                        src: ['./client/**/*.js'],
                         //the location of the resulting js file
-                        dest: './dist/all.js'
+                        dest: './dist/client/all.js'
                   }
             },
             //minifies all of the concatenated files
@@ -52,7 +68,7 @@ module.exports = function(grunt) {
                   },
                   dist: {
                         files: {
-                              'dist/all.min.js': ['<%= concat.dist.dest %>']
+                              'dist/client/all.min.js': ['<%= concat.dist.dest %>']
                         }
                   }
             },
@@ -74,11 +90,6 @@ module.exports = function(grunt) {
                         }
                   }
             },
-            //running `grunt watch` from terminal will execute these tasks
-            watch: {
-                  files: ['<%= jshint.files %>'],
-                  tasks: ['jshint', 'qunit']
-            }
       });
 
       //task for testing

@@ -2,7 +2,7 @@
   "name": "streamsummary",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,5 +27,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-execute": "^0.2.2",
     "load-grunt-tasks": "^3.4.0"
+  },
+  "dependencies": {
+    "dotenv": "^2.0.0"
   }
 }
