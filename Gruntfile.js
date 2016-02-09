@@ -33,39 +33,6 @@ module.exports = function(grunt) {
                   server: '.tmp'
             },
 
-            //babel to convert es6 8)
-            babel: {
-                  options: {
-                        sourceMap: true,
-                        optional: [
-                              'es7.classProperties'
-                        ]
-                  },
-                  client: {
-                        // files: [{
-                        //       expand: true,
-                        //       //directory of the front end client files
-                        //       cwd: '<%= dirs.client %>',
-                        //       src: ['{app}/**/!(*.spec).js'],
-                        //       //sending babelified files into .tmp so we can then concat and ugilfy
-                        //       dest: '.tmp'
-                        //
-                        // }]
-                        './.tmp': ['{app}/**/!(*.spec).js'],
-                  },
-                  // server: {
-                  //       options: {
-                  //             optional: ['runtime']
-                  //       },
-                  //       files: [{
-                  //             expand: true,
-                  //             cwd: '<% dirs.server %>',
-                  //             src: ['./server/**/*.js'],
-                  //             dest: '<%= dirs.dist %>/<%= dirs.server %>'
-                  //       }]
-                  // }
-            },
-
             //concatenates all the js files together
             concat: {
                   options: {
@@ -79,6 +46,7 @@ module.exports = function(grunt) {
                         dest: './dist/client/all.js'
                   }
             },
+
             //minifies all of the concatenated files
             uglify: {
                   options: {
@@ -95,6 +63,7 @@ module.exports = function(grunt) {
             qunit: {
                   files: ['test/**/*.html']
             },
+
             //javascript hints/validation
             jshint: {
                   //defining the files to validate through js hint
@@ -110,21 +79,42 @@ module.exports = function(grunt) {
                   }
             },
 
-            // watch: {
-            //       babel: {
-            //             files: ['<%= dirs.client']
-            //       }
-            // }
+            //babel to convert es6 8)
+            'babel': {
+                  options: {
+                        sourceMap: true,
+                  },
+                  client: {
+                        files: [{
+                              expand: true,
+                              //directory of the front end client files
+                              cwd: '<%= dirs.client %>',
+                              src: ['{app}/**/!(*.spec).js'],
+                              //sending babelified files into .tmp so we can then concat and ugilfy
+                              dest: '.tmp',
+                              ext: '.js'
+                        }]
+                  },
+                  server: {
+                        files: [{
+                              expand: true,
+                              cwd: '<% dirs.server %>',
+                              src: ['./server/**/*.js'],
+                              dest: '<%= dirs.dist %>/<%= dirs.server %>'
+                        }]
+                  },
+            }
       });
 
       //task for testing
       grunt.registerTask('test', ['jshint', 'qunit']);
 
-      //grunt.registerTask('babel', ['babel']);
 
       //build task
       grunt.registerTask('build', [
             'clean:dist',
+            'babel:server',
+            'babel:client',
             'concat',
             'uglify',
       ]);
