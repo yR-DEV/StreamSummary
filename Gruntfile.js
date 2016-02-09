@@ -2,8 +2,15 @@
 
 module.exports = function(grunt) {
 
+      var localConfig;
+      try {
+            localConfig = require('./server/config/development.js')
+      } catch(e) {
+            localConfig = {}
+      }
+
       require('load-grunt-tasks')(grunt);
-      grunt.loadNpmTasks('grunt-express-server');
+      // grunt.loadNpmTasks('grunt-express-server');
       grunt.loadNpmTasks('grunt-contrib-concat');
       grunt.loadNpmTasks('grunt-contrib-uglify');
       grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -22,6 +29,29 @@ module.exports = function(grunt) {
                   server: 'server',
                   dist: 'dist'
             },
+
+            //express grunt server (DONT THINK IM GOING TO USE YET)
+            // express: {
+            //       options: {
+            //             port: process.env.PORT || 9000
+            //       },
+            //       dev: {
+            //             options: {
+            //                   script: '<%= dirs.server %>',
+            //                   debug: true
+            //             }
+            //       },
+            //       prod: {
+            //             options: {
+            //                   script: '<%= dirs.dist %>/<%= dirs.server %>'
+            //             }
+            //       }
+            //       open: {
+            //             server: {
+            //                   url: 'http://localhost:<%= express.options.port %>'
+            //             }
+            //       }
+            // }
 
             //cleaning the distribution directory
             clean: {
@@ -100,7 +130,7 @@ module.exports = function(grunt) {
                               expand: true,
                               cwd: '<% dirs.server %>',
                               src: ['./server/**/*.js'],
-                              dest: '<%= dirs.dist %>/<%= dirs.server %>'
+                              dest: '<%= dirs.dist %>/'
                         }]
                   },
             }

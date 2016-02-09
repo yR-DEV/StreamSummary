@@ -31,6 +31,17 @@
     "load-grunt-tasks": "^3.4.0"
   },
   "dependencies": {
-    "dotenv": "^2.0.0"
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.1",
+    "cookie-parser": "^1.4.1",
+    "dotenv": "^2.0.0",
+    "ejs": "^2.4.1",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "favicon": "0.0.2",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1",
+    "nodemon": "^1.8.1",
+    "path": "^0.12.7"
   }
 }
