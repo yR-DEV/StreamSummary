@@ -136,6 +136,24 @@ module.exports = function(grunt) {
             }
       });
 
+      copy: {
+            dist: {
+                  files: [{
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= dirs.dist %>',
+                        dest: '<%= dirs.dist %>/<%= dirs.client %>',
+                        src: [
+                              '*.{ico,png,txt}',
+                              '.htaccess',
+                              'bower_components/**/*',
+                              'assets/images/{,*/}*.{webp}',
+                              'assets/fonts/**/*',
+                              'index.html',
+                        ]
+                  }]      
+      }
+
       //task for testing
       grunt.registerTask('test', ['jshint', 'qunit']);
 
