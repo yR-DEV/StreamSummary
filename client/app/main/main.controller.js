@@ -8,6 +8,8 @@ class MainController {
             this.$http = $http;
             this.$interval = $interval;
 
+            this.statDate = new Date();
+            console.log(this.statDate);
             //function updateStats() {
             //setInterval(function() {
                   // $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
@@ -18,17 +20,21 @@ class MainController {
             //}
             //function updateStats(){
             $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
-                  //this.stats = response.data;
+                  this.stats = {};
                   console.log(response.data);
-                  this.stats = response.data;
+                  this.stats.channels = response.data.channels;
+                  this.stats.viewers = response.data.viewers;
+                  this.stats.date = this.statDate;
                   console.log('stats updated');
+
+                  $http.post('/api/stats/logstats', this.stats).then(response => {
+                        console.log('*** POST RESPONSE *****');
+                        console.log(response);
+                  })
             });
             //}
 
             console.log('inside constructor');
-
-            this.statDate = new Date();
-            console.log(this.statDate);
       }
 
       // $interval(function() {

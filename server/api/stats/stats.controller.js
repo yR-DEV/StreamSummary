@@ -76,9 +76,15 @@ export function show(req, res) {
 
 // Creates a new Stats in the DB
 export function create(req, res) {
-  Stats.createAsync(req.body)
-    .then(respondWithResult(res, 201))
-    .catch(handleError(res));
+      console.log('SERVER SIDE');      
+      console.log(req.body);
+      res.json({
+            status: 200,
+            data: req.body
+      })
+  // Stats.createAsync(req.body)
+  //   .then(respondWithResult(res, 201))
+  //   .catch(handleError(res));
 }
 
 // Updates an existing Stats in the DB
