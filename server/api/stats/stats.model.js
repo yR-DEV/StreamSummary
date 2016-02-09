@@ -8,4 +8,4 @@ var StatsSchema = new mongoose.Schema({
   active: Boolean
 });
 
-export default mongoose.model('Stats', ThingSchema);
+export default mongoose.model('Stats', StatsSchema);
