@@ -23,6 +23,5 @@ class MainController {
 }
 
 angular.module('streamSummaryApp')
-      .controller('MainController', MainController);
-
+.controller('MainController', MainController);
 })();
