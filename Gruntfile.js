@@ -3,6 +3,7 @@
 module.exports = function(grunt) {
 
       require('load-grunt-tasks')(grunt);
+      grunt.loadNpmTasks('grunt-express-server');
       grunt.loadNpmTasks('grunt-contrib-concat');
       grunt.loadNpmTasks('grunt-contrib-uglify');
       grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -32,20 +33,38 @@ module.exports = function(grunt) {
                   server: '.tmp'
             },
 
-
-            //babel to convert es6 to usable es5
-            // babel: {
-            //       options: {
-            //             sourceMap: true,
-            //             presets: ['es2015'],
-            //             modules: 'common'
-            //       },
-            //       client: {
-            //             files: [{
-            //                   expand: true,
-            //             }]
-            //       },
-            // }
+            //babel to convert es6 8)
+            babel: {
+                  options: {
+                        sourceMap: true,
+                        optional: [
+                              'es7.classProperties'
+                        ]
+                  },
+                  client: {
+                        // files: [{
+                        //       expand: true,
+                        //       //directory of the front end client files
+                        //       cwd: '<%= dirs.client %>',
+                        //       src: ['{app}/**/!(*.spec).js'],
+                        //       //sending babelified files into .tmp so we can then concat and ugilfy
+                        //       dest: '.tmp'
+                        //
+                        // }]
+                        './.tmp': ['{app}/**/!(*.spec).js'],
+                  },
+                  // server: {
+                  //       options: {
+                  //             optional: ['runtime']
+                  //       },
+                  //       files: [{
+                  //             expand: true,
+                  //             cwd: '<% dirs.server %>',
+                  //             src: ['./server/**/*.js'],
+                  //             dest: '<%= dirs.dist %>/<%= dirs.server %>'
+                  //       }]
+                  // }
+            },
 
             //concatenates all the js files together
             concat: {
@@ -55,7 +74,7 @@ module.exports = function(grunt) {
                   },
                   dist: {
                         //source files to concatenate
-                        src: ['./client/**/*.js'],
+                        src: ['./.tmp/**/*.js'],
                         //the location of the resulting js file
                         dest: './dist/client/all.js'
                   }
@@ -68,7 +87,7 @@ module.exports = function(grunt) {
                   },
                   dist: {
                         files: {
-                              'dist/client/all.min.js': ['<%= concat.dist.dest %>']
+                              './tmp/client/all.min.js': ['<%= concat.dist.dest %>']
                         }
                   }
             },
@@ -90,12 +109,27 @@ module.exports = function(grunt) {
                         }
                   }
             },
+
+            // watch: {
+            //       babel: {
+            //             files: ['<%= dirs.client']
+            //       }
+            // }
       });
 
       //task for testing
       grunt.registerTask('test', ['jshint', 'qunit']);
 
+      //grunt.registerTask('babel', ['babel']);
+
+      //build task
+      grunt.registerTask('build', [
+            'clean:dist',
+            'concat',
+            'uglify',
+      ]);
+
       //default task. runs when `grunt` is run from terminal
-      grunt.registerTask('default', [ 'concat' , 'uglify' ]);
+      grunt.registerTask('default', [ 'build' ]);
 
 };
