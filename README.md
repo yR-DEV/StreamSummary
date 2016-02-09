@@ -1,6 +1,19 @@
 STREAMS SUMMARY
 =====
 
+### What it is
+- A simple application that will monitor and record the stream summary numbers from twitch
+- The json object returned from the  api query includes:
+      * channels: Number (the number of channels on twitch that are currently streaming live)
+      * viewers: Number (number of current active viewers, i.e. people watching live streams)
+- I will be displaying the recorded data with Chart.js, will get to this soon
+
+### Goals?
+- Hopefully learn something from the database
+- Validate the increasing presence and popularity of twitch
+      * Is the total number of viewers increasing at a faster rate than channels?
+      * Other information
+
 ## Getting Started
 
 ### What ya need
@@ -21,14 +34,30 @@ STREAMS SUMMARY
 
 3. `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
 
-4. Run `grunt serve` to start the development server. It should automatically open the client in your browser when ready, and update upon changes to files.
+4. `grunt serve` will start the development server. It should automatically open the client in your browser when ready, and update upon changes to files. If updates fail to hold, restart it.
 
 
-## buildin and developin
+## buildin' and developin'
 
 Run `grunt build` for building and `grunt serve` for preview.
 
 
-## Testing
+## Testin yo code
 
 Running `npm test` will run the unit tests with karma.
+
+## TODO:
+- instantiate a Chart.js module or put it into stats.
+- finish database connection and enter data into mongod
+      * ~~make sure that schema and connections are ok~~
+      * figure out if you need to use .env
+      * ~~add env to .gitignore~~
+- mongo configuration options for the server in files:
+      * `./server/config/environment/index.js`
+      * `./server/config/environment/production.js`
+      * `./server/config/environment/development.js`
+      * and maybe in the test file?
+
+## Things to learn
+- Chart.js and how it accesses data from the backend
+- exactly how these front end angular components are compiled so I can use it like a react component/class      

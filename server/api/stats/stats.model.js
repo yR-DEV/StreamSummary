@@ -3,9 +3,9 @@
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
 var StatsSchema = new mongoose.Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  date: String,
+  channels: Number,
+  viewers: Number
 });
 
 export default mongoose.model('Stats', StatsSchema);

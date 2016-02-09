@@ -33,6 +33,7 @@ var all = {
   },
 
   // MongoDB connection options
+  //need to come back and edit this 
   mongo: {
     options: {
       db: {
