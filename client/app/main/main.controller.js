@@ -4,31 +4,22 @@
 
 class MainController {
 
-      constructor($http) {
+      constructor($http, $interval) {
             this.$http = $http;
-            //this.awesomeThings = [];
+            this.$interval = $interval;
 
-            $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
-                  this.stats = response.data;
-            });
+            //function updateStats() {
+                  $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
+                        this.stats = response.data;
+                        console.log('stats updated');
+                  });
+            //}
 
             console.log('inside constructor');
 
             this.statDate = new Date();
             console.log(this.statDate);
       }
-
-  // addThing() {
-  //   if (this.newThing) {
-  //     this.$http.post('/api/things', { name: this.newThing });
-  //     this.newThing = '';
-  //   }
-  // }
-  //
-  // deleteThing(thing) {
-  //   this.$http.delete('/api/things/' + thing._id);
-  // }
-
 }
 
 angular.module('streamSummaryApp')
