@@ -1,28 +1,39 @@
-//Main application file
-//Express backend
-'use-strict';
+/**
+ * Main application file
+ */
 
-//imports hopefully grunt works here
-//I feel like I have to use express grunt to compile everything
+'use strict';
+
 import express from 'express';
-import path from 'path';
-import config from './development';
-
-//setting up the server
+import mongoose from 'mongoose';
+mongoose.Promise = require('bluebird');
+import config from './config/environment';
 import http from 'http';
-let app = express();
-let server = http.createServer(app);
 
-//Starting the server
+// Connect to MongoDB
+mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connection.on('error', function(err) {
+  console.error('MongoDB connection error: ' + err);
+  process.exit(-1);
+});
+
+// Populate databases with sample data
+if (config.seedDB) { require('./config/seed'); }
+
+// Setup server
+var app = express();
+var server = http.createServer(app);
+require('./config/express')(app);
+require('./routes')(app);
+
+// Start server
 function startServer() {
-      server.listen(config.port, function() {
-            console.log('** EXPRESS SERVER **');
-            console.log('*** LISTENING ON ***');
-            console.log('PORT: ' + config.port);
-      })
+  app.angularFullstack = server.listen(config.port, config.ip, function() {
+    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+  });
 }
 
 setImmediate(startServer);
 
-//exposing the application
+// Expose app
 exports = module.exports = app;

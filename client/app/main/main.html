@@ -1,0 +1,13 @@
+<div id="main" ng-controller="MainController as main">
+
+      <div id="stats">
+            <p id="stat-date">{{main.statDate | date:"fullDate"}}</p>
+            <div>
+                  {{main.stats.channels}}
+            </div>
+            <div>
+                  {{main.stats.viewers}}
+            </div>
+      </div>
+
+</div>
