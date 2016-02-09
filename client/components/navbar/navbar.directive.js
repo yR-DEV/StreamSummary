@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streamSummaryApp')
+angular.module('StreamSummaryApp')
   .directive('navbar', () => ({
     templateUrl: 'components/navbar/navbar.html',
     restrict: 'E',

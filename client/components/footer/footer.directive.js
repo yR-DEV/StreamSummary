@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streamSummaryApp')
+angular.module('StreamSummaryApp')
   .directive('footer', function() {
     return {
       templateUrl: 'components/footer/footer.html',

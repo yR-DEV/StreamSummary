@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streamSummaryApp')
+angular.module('StreamSummaryApp')
   .config(function($stateProvider) {
     $stateProvider
       .state('main', {

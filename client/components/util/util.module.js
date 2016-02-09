@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('streamSummaryApp.util', []);
+angular.module('StreamSummaryApp.util', []);

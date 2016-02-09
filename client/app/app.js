@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streamSummaryApp', [
+angular.module('StreamSummaryApp', [
   'streamSummaryApp.constants',
   'ngCookies',
   'ngResource',
@@ -13,6 +13,6 @@ angular.module('streamSummaryApp', [
 
     $locationProvider.html5Mode(true);
 
-    
+
 
   });

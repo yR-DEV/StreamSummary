@@ -4,11 +4,11 @@
  */
 
 'use strict';
-import Thing from '../api/thing/thing.model';
+import Stats from '../api/stats/stats.model';
 
-Thing.find({}).removeAsync()
+Stats.find({}).removeAsync()
   .then(() => {
-    Thing.create({
+    Stats.create({
       name: 'Development Tools',
       info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
              'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
@@ -37,4 +37,3 @@ Thing.find({}).removeAsync()
              'and openshift subgenerators'
     });
   });
-

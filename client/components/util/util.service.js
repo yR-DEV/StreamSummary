@@ -59,7 +59,7 @@ function UtilService($window) {
   return Util;
 }
 
-angular.module('streamSummaryApp.util')
+angular.module('StreamSummaryApp.util')
   .factory('Util', UtilService);
 
 })();

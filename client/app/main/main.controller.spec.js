@@ -3,7 +3,7 @@
 describe('Controller: MainController', function() {
 
   // load the controller's module
-  beforeEach(module('streamSummaryApp'));
+  beforeEach(module('StreamSummaryApp'));
   beforeEach(module('stateMock'));
 
   var scope;

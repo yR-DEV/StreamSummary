@@ -14,5 +14,5 @@ class NavbarController {
     }
 }
 
-angular.module('streamSummaryApp')
+angular.module('StreamSummaryApp')
   .controller('NavbarController', NavbarController);
