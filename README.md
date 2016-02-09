@@ -1,18 +1,21 @@
 STREAMS SUMMARY
 =====
 
+## Explanation/Justification
+
 ### What it is
 - A simple application that will monitor and record the stream summary numbers from twitch
+      * url: `https://api.twitch.tv/kraken/streams/summary`
 - The json object returned from the  api query includes:
       * channels: Number (the number of channels on twitch that are currently streaming live)
       * viewers: Number (number of current active viewers, i.e. people watching live streams)
 - I will be displaying the recorded data with Chart.js, will get to this soon
 
 ### Goals?
-- Hopefully learn something from the database
-- Validate the increasing presence and popularity of twitch
+- Hopefully learn something from the numbers recorded over a period of time.
+- Validate the increasing presence and popularity of twitch (mostly for myself)
       * Is the total number of viewers increasing at a faster rate than channels?
-      * Other information
+      * Other information???
 
 ## Getting Started
 
