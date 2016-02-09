@@ -1,7 +1,7 @@
 <div id="main" ng-controller="MainController as main">
 
       <div id="stats">
-            <p id="stat-date">{{main.statDate | date:"fullDate"}}</p>
+            <p id="stat-date">{{main.statDate | date:'MM/dd/yyyy @ h:mma'}}</p>
             <div>
                   {{main.stats.channels}}
             </div>

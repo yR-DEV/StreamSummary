@@ -12,11 +12,11 @@ class MainController {
                   this.stats = response.data;
             });
 
-            this.statDate = New Date();
+            console.log('inside constructor');
+
+            this.statDate = new Date();
             console.log(this.statDate);
-
       }
-
 
   // addThing() {
   //   if (this.newThing) {
