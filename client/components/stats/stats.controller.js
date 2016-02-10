@@ -14,15 +14,19 @@ class StatsController {
             //also includes the post that will send each api call data to the back end
             var update = () => {
                   $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
+                        console.log('first round');
                         //making an object so I dont have the kraken link in every single object stored in the db
                         this.stats.channels = response.data.channels;
                         this.stats.viewers = response.data.viewers;
                         this.stats.date = this.statDate;
                         //posting the statistics to the backend where they will be inserted into mongo
-                        $http.post('/api/stats/logstats', this.stats).then(response => {
-                              console.log('*** POST RESPONSE *****');
-                              console.log(response);
-                        })
+                        if(initialGet !== 0) {
+                            console.log('SECOND ROUND');
+                            $http.post('/api/stats/logstats', this.stats).then(response => {
+                                  console.log('*** POST RESPONSE *****');
+                                  console.log(response.data);
+                            });
+                        }
                   });
             }
             //needed a function to initially use an http.get
@@ -31,7 +35,7 @@ class StatsController {
                   update();
                   initialGet += 1;
             }
-            $interval(update, 10000);
+            $interval(update, 15000);
       }
 
 }

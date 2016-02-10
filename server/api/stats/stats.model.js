@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+// var mongoose = require('mongoose');
 
 var StatsSchema = new mongoose.Schema({
   date: String,
@@ -8,4 +9,4 @@ var StatsSchema = new mongoose.Schema({
   viewers: Number
 });
 
-export default mongoose.model('Stats', StatsSchema);
+export default mongoose.model('stats', StatsSchema);
