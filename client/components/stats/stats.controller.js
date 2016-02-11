@@ -8,15 +8,11 @@ class StatsController {
             this.$interval = $interval;
             this.stats = {};
             let initialGet = 0;
-
             this.statDate = new Date();
-
             //function to call on the twitch api summary.
             //also includes the post that will send each api call data to the back end
             var query = () => {
                   $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
-                        //console.log('*** first round ***');
-                        //console.log(response);
                         //making an object so I dont have the kraken link in every single object stored in the db
                         this.stats.channels = response.data.channels;
                         this.stats.viewers = response.data.viewers;
@@ -25,10 +21,6 @@ class StatsController {
                         if(initialGet !== 0) {
                             console.log('initialget > 0');
                         }
-                        // $http.get('/api/stats/graphStats').then(response => {
-                        //     //console.log('*** GRAPH STATS RES ***');
-                        //     console.log(response);
-                        // });
                   });
             }
             //needed a function to initially use an http.get

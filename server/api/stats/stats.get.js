@@ -13,22 +13,28 @@ var options = {
 //and then returned to the front end where it is rendered
 //on top of the jumbotron in the stats component
 //SET INTERVAL GOES HERE
-https.get(options, function(res) {
-    var bodyChunks = [];
-    res.on('data', function(chunk) {
-        bodyChunks.push(chunk);
-    }).on('end', function() {
-        var body = Buffer.concat(bodyChunks);
-        body = JSON.parse(body);
-        //console.log('BODY: ' + body);
-        var statTick = {
-            "date": new Date,
-            "channels": body.channels,
-            "viewers": body.viewers
-        };
-        //Save the data from the timed api call
-        controller.saveStats(statTick);
-    })
-}).on('error', function(e) {
-    console.log('ERROR: ' + e);
-});
+//setInterval(function() {
+//export function getStatRecords() {
+    console.log('get function');
+    https.get(options, function(res) {
+        var bodyChunks = [];
+        res.on('data', function(chunk) {
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+            body = JSON.parse(body);
+            //console.log('BODY: ' + body);
+            var statTick = {
+                "date": new Date,
+                "channels": body.channels,
+                "viewers": body.viewers
+            };
+            //Save the data from the timed api call
+            controller.saveStats(statTick);
+        })
+    }).on('error', function(e) {
+        console.log('ERROR: ' + e);
+    });
+//}
+
+//setInterval(getStatRecords(), 5000);
