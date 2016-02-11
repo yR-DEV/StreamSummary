@@ -1,21 +1,21 @@
 STREAMS SUMMARY
 =====
 
-## Explanation/Justification
+## Explanation/Justification?
 
 ### What it is
 - A simple application that will monitor and record the stream summary numbers from twitch
-      * url: `https://api.twitch.tv/kraken/streams/summary`
+    * url: `https://api.twitch.tv/kraken/streams/summary`
 - The json object returned from the  api query includes:
-      * channels: Number (the number of channels on twitch that are currently streaming live)
-      * viewers: Number (number of current active viewers, i.e. people watching live streams)
+    * channels: Number (the number of channels on twitch that are currently streaming live)
+    * viewers: Number (number of current active viewers, i.e. people watching live streams)
 - I will be displaying the recorded data with Chart.js, will get to this soon
 
 ### Goals?
 - Hopefully learn something from the numbers recorded over a period of time.
 - Validate the increasing presence and popularity of twitch (mostly for myself)
-      * Is the total number of viewers increasing at a faster rate than channels?
-      * Other information???
+    * Is the total number of viewers increasing at a faster rate than channels?
+    * Other information???
 
 ## Getting Started
 
@@ -45,22 +45,24 @@ STREAMS SUMMARY
 Run `grunt build` for building and `grunt serve` for preview.
 
 
-## Testin yo code
+## Testing the app
 
 Running `npm test` will run the unit tests with karma.
 
 ## TODO:
-- instantiate a Chart.js module or put it into stats.
-- finish database connection and enter data into mongod
-      * ~~make sure that schema and connections are ok~~
-      * figure out if you need to use .env
-      * ~~add env to .gitignore~~
-- mongo configuration options for the server in files:
-      * `./server/config/environment/index.js`
-      * `./server/config/environment/production.js`
-      * `./server/config/environment/development.js`
-      * and maybe in the test file?
+- ~~instantiate a Chart.js module or put it into stats.~~
+- ~~finish database connection and enter data into mongod~~
+    * ~~make sure that schema and connections are ok~~
+    * ~~figure out if you need to use .env~~
+    * ~~add env to .gitignore~~
+- ~~mongo configuration options for the server in files:~~
+- Set up graph controller to pull the X most recent ticks from the mongo collection and display them accordingly.
+    * I feel like I am going to have to refactor the code I write for this.
+- Figure out why the initial and subsequent API calls are being executed twice.
+- Should I use async promises for my mongoose database interactions...?    
 
 ## Things to learn
-- Chart.js and how it accesses data from the backend
-- exactly how these front end angular components are compiled so I can use it like a react component/class      
+- ~~Chart.js and how it accesses data from the backend~~
+    * Do I need to set any custom global settings for my line graph?
+    * how does the chart.js `update()` exactly work? Does it rerender or do I need a page refresh (Please be the former...)
+- exactly how these front end angular components are compiled so I can use it like a react component/class (I have a feeling it is the directive of each component)    

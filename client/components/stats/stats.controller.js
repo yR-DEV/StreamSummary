@@ -12,7 +12,7 @@ class StatsController {
 
             //function to call on the twitch api summary.
             //also includes the post that will send each api call data to the back end
-            var update = () => {
+            var query = () => {
                   $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
                         console.log('first round');
                         //making an object so I dont have the kraken link in every single object stored in the db
@@ -22,7 +22,7 @@ class StatsController {
                         //posting the statistics to the backend where they will be inserted into mongo
                         if(initialGet !== 0) {
                             console.log('SECOND ROUND');
-                            $http.post('/api/stats/logstats', this.stats).then(response => {
+                            $http.post('/api/stats/savestats', this.stats).then(response => {
                                   console.log('*** POST RESPONSE *****');
                                   console.log(response.data);
                             });
@@ -31,11 +31,16 @@ class StatsController {
             }
             //needed a function to initially use an http.get
             //because timer will be set to ~30 mins?
-            // if(initialGet === 0) {
-            //       update();
-            //       initialGet += 1;
-            // }
-            // $interval(update, 15000);
+            if(initialGet === 0) {
+                  query();
+                  initialGet += 1;
+            }
+            $interval(query, 15000);
+
+            $http.get('/api/stats/graphstats').then(response => {
+                console.log('*** GRAPH STATS RES ***');
+                console.log(response);
+            }); 
       }
 
 }

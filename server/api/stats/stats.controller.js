@@ -14,6 +14,7 @@ import Stats from './stats.model';
 import mongoose from 'mongoose';
 // var mongoose = require('mongoose');
 
+
 var StatsSchema = new mongoose.Schema({
   date: String,
   channels: Number,
@@ -22,26 +23,43 @@ var StatsSchema = new mongoose.Schema({
 
 var Tick = mongoose.model('Statistics', StatsSchema);
 
-export function create(req, res) {
-    //var tickEntry = new StatsSchema(req.body);
-    // Stats.save(req.body).then(function(data) {
-    //     console.log('saved');
-    //     res.json(200);
-    // })
+export function savestats(req, res) {
     var tickEntry = new Tick(req.body);
-    tickEntry.save(function(err) {
+    return tickEntry.save(function(err) {
         if(err) {
             res.json(err);
             return err;
         } else {
             res.json(200);
         }
-        // console.log(err);
-        // res.json(200);
+    }).then(function(ret) {
+        console.log('******',ret);
+        return ret;
     });
-    // console.log(req.body);
-    // res.json(200);
 }
+
+export function graphstats(req, res) {
+    return Tick.find().sort({"date": 1}).limit(1).then(function(data) {
+        console.log('****GET ****');
+        console.log(data);
+        res.json(data);
+    });
+}
+
+//export function graphstats(req, res) {
+    //var initialQuery = Statistics.find().sort({"date": 1});
+    //res.json(initialQuery);
+    // return Statistics.find().sort({"date": 1}).then(function(data, err) {
+    //     return data;
+    //     console.log(data);
+    // });
+    // return Statistics.find().sort({"date": 1}).limit(2).then(function(data) {
+    //     console.log('*** INITIAL GET OF STATS ***');
+    //     console.log(data);
+    //     res.json(data);
+    //     return data;
+    // })
+//}
 
 //
 // function respondWithResult(res, statusCode) {

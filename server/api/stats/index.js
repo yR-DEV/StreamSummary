@@ -6,8 +6,8 @@ var controller = require('./stats.controller');
 var router = express.Router();
 
 // router.get('/', controller.index);
-// router.get('/:id', controller.show);
-router.post('/logstats', controller.create);
+router.get('/graphstats', controller.graphstats);
+router.post('/savestats', controller.savestats);
 // router.put('/:id', controller.update);
 // router.patch('/:id', controller.update);
 // router.delete('/:id', controller.destroy);
