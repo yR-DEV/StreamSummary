@@ -6,7 +6,7 @@ class StatsController {
             this.$http = $http;
             this.$interval = $interval;
             this.stats = {};
-            var initialGet = 0;
+            let initialGet = 0;
 
             this.statDate = new Date();
 
@@ -23,12 +23,6 @@ class StatsController {
                         //posting the statistics to the backend where they will be inserted into mongo
                         if(initialGet !== 0) {
                             console.log('initialget > 0');
-                            //I DO NOT NEED TO POST FROM THE FRONT END BECAUSE THEN MULTIPLE CLIENTS
-                            //HAVE THE ABILITY TO POST THE SAME STATS TO THE DB AT THE SAME TIME
-                            // $http.post('/api/stats/savestats', this.stats).then(response => {
-                            //       console.log('*** POST RESPONSE *****');
-                            //       console.log(response.data);
-                            // });
                         }
                         $http.get('/api/stats/graphStats').then(response => {
                             console.log('*** GRAPH STATS RES ***');
@@ -42,7 +36,7 @@ class StatsController {
                   query();
                   initialGet += 1;
             }
-            $interval(query, 15000);
+            // $interval(query, 60000);
       }
 
 }

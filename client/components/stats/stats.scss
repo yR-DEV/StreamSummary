@@ -1,18 +1,15 @@
-// #main {
-//
-//       #stats {
-//             width: 50%;
-//             background-color: yellow;
-//             margin: 0 auto;
-//             font-size: 30px;
-//             text-align: right;
-//
-//             .row {
-//                   height: 70px;
-//
-//                   #stat-date {
-//                         font-size: 30px;
-//                   }
-//             }
-//       }
-// }
+#stats {
+      width: 800px;
+      background-color: yellow;
+      margin: 0 auto;
+      font-size: 30px;
+      text-align: right;
+
+      .row {
+            height: 70px;
+
+            #stat-date {
+                  font-size: 30px;
+            }
+      }
+}
