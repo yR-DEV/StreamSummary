@@ -10,7 +10,7 @@ class GraphController {
             //var myLineChart = new Chart(ctx).Line(data);
 
             var data = {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                 datasets: [
                     {
                         label: "My First dataset",
@@ -20,7 +20,7 @@ class GraphController {
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        data: [65, 59, 60, 61, 56, 55, 40, 10, 20, 34, 23, 56]
                     },
                     {
                         label: "My Second dataset",
@@ -30,7 +30,7 @@ class GraphController {
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [28, 48, 40, 19, 86, 27, 90]
+                        data: [28, 48, 40, 19, 66, 27, 60, 43, 54, 23, 14, 64]
                     }
                 ]
         };
