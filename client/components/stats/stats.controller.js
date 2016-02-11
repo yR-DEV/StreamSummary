@@ -18,6 +18,7 @@ class StatsController {
                         this.stats.viewers = response.data.viewers;
                         this.stats.date = this.statDate;
                         //posting the statistics to the backend where they will be inserted into mongo
+                        console.log(response);
                         if(initialGet !== 0) {
                             console.log('initialget > 0');
                         }
@@ -25,11 +26,11 @@ class StatsController {
             }
             //needed a function to initially use an http.get
             //because timer will be set to ~30 mins?
-            if(initialGet === 0) {
-                  query();
-                  initialGet += 1;
-            }
-            $interval(query, 60000);
+            // if(initialGet === 0) {
+            //       query();
+            //       initialGet += 1;
+            // }
+            $interval(query, 50000);
       }
 
 }
