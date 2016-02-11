@@ -11,13 +11,18 @@ STREAMS SUMMARY
     * viewers: Number (number of current active viewers, i.e. people watching live streams)
 - I will be displaying the recorded data with Chart.js, will get to this soon
 
+
 ### Goals?
 - Hopefully learn something from the numbers recorded over a period of time.
 - Validate the increasing presence and popularity of twitch (mostly for myself)
     * Is the total number of viewers increasing at a faster rate than channels?
     * Other information???
 
+__________
+========
+
 ## Getting Started
+
 
 ### What ya need
 
@@ -32,11 +37,8 @@ STREAMS SUMMARY
 ### Set up for development
 
 1. `npm install` to install server dependencies.
-
 2. `bower install` to install front-end dependencies.
-
 3. `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
-
 4. `grunt serve` will start the development server. It should automatically open the client in your browser when ready, and update upon changes to files. If updates fail to hold, restart it.
 
 
@@ -49,6 +51,7 @@ Run `grunt build` for building and `grunt serve` for preview.
 
 Running `npm test` will run the unit tests with karma.
 
+
 ## TODO:
 - ~~instantiate a Chart.js module or put it into stats.~~
 - ~~finish database connection and enter data into mongod~~
@@ -56,10 +59,11 @@ Running `npm test` will run the unit tests with karma.
     * ~~figure out if you need to use .env~~
     * ~~add env to .gitignore~~
 - ~~mongo configuration options for the server in files:~~
-- Set up graph controller to pull the X most recent ticks from the mongo collection and display them accordingly.
-    * I feel like I am going to have to refactor the code I write for this.
+- ~~Set up graph controller to pull the X most recent ticks from the mongo collection and display them accordingly.~~~
+    * ~~I feel like I am going to have to refactor the code I write for this.~~
 - Figure out why the initial and subsequent API calls are being executed twice.
-- Should I use async promises for my mongoose database interactions...?    
+- ~~Should I use async promises for my mongoose database interactions...?~~   
+
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~
