@@ -1,17 +1,13 @@
 'use-strict';
 
 class GraphController {
-
     constructor($http, $interval) {
         this.$http = $http;
         this.$interval = $interval;
-
         var ctx = document.getElementById("myChart").getContext("2d");
 
-
         $http.get('/api/stats/graphstats').then(response => {
-            console.log(response.data);
-
+            //console.log(response.data);
             var data = {
                 labels: [],
                 datasets: [
@@ -41,7 +37,7 @@ class GraphController {
                 data.labels.push(entry.date);
                 data.datasets[0].data.push(entry.channels);
                 data.datasets[1].data.push(entry.viewers);
-                console.log(entry);
+                //console.log(entry);
             });
             var myLineChart = new Chart(ctx).Line(data);
         });
