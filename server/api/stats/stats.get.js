@@ -1,8 +1,8 @@
 'use-strict';
 
-// import _ from 'lodash';
-// import https from 'https';
-// import controller from './stats.controller';
+import _ from 'lodash';
+import https from 'https';
+import controller from './stats.controller';
 
 // var options = {
 //     host: 'api.twitch.tv',
@@ -12,24 +12,29 @@
 // //http request whose data is sent to stats.controller.js
 // //and then returned to the front end where it is rendered
 // //on top of the jumbotron in the stats component
-// //SET INTERVAL GOES HERE
+// //SET INTERVAL GOES HERE (WORKING)
+// function getKraken() {
+//     https.get(options, function(res) {
+//         //console.log(res);
+//         var bodyChunks = [];
+//         res.on('data', function(chunk) {
+//             bodyChunks.push(chunk);
+//         }).on('end', function() {
+//             var body = Buffer.concat(bodyChunks);
+//             body = JSON.parse(body);
+//             //console.log('BODY: ' + body);
+//             var statTick = {
+//                 "date": new Date,
+//                 "channels": body.channels,
+//                 "viewers": body.viewers
+//             };
+//             //Save the data from the timed api call
+//             console.log(statTick);
+//             controller.saveStats(statTick);
+//         })
+//     }).on('error', function(e) {
+//         console.log('ERROR: ' + e);
+//     });
+// }
 //
-// https.get(options, function(res) {
-//     var bodyChunks = [];
-//     res.on('data', function(chunk) {
-//         bodyChunks.push(chunk);
-//     }).on('end', function() {
-//         var body = Buffer.concat(bodyChunks);
-//         body = JSON.parse(body);
-//         //console.log('BODY: ' + body);
-//         var statTick = {
-//             "date": new Date,
-//             "channels": body.channels,
-//             "viewers": body.viewers
-//         };
-//         //Save the data from the timed api call
-//         controller.saveStats(statTick);
-//     })
-// }).on('error', function(e) {
-//     console.log('ERROR: ' + e);
-// });
+// setInterval(getKraken, 1000);

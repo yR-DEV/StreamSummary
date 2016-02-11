@@ -50,10 +50,10 @@ var options = {
 //http request whose data is sent to stats.controller.js
 //and then returned to the front end where it is rendered
 //on top of the jumbotron in the stats component
-//SET INTERVAL GOES HERE
-function get() {
+//SET INTERVAL GOES HERE (WORKING)
+function getKraken() {
     https.get(options, function(res) {
-        console.log(res);
+        //console.log(res);
         var bodyChunks = [];
         res.on('data', function(chunk) {
             bodyChunks.push(chunk);
@@ -67,6 +67,7 @@ function get() {
                 "viewers": body.viewers
             };
             //Save the data from the timed api call
+            console.log(statTick);
             saveStats(statTick);
         })
     }).on('error', function(e) {
@@ -74,4 +75,4 @@ function get() {
     });
 }
 
-setInterval(get, 5000);
+setInterval(getKraken, 1000);
