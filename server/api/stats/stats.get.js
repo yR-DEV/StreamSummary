@@ -12,6 +12,7 @@ var options = {
 //http request whose data is sent to stats.controller.js
 //and then returned to the front end where it is rendered
 //on top of the jumbotron in the stats component
+//SET INTERVAL GOES HERE
 https.get(options, function(res) {
     var bodyChunks = [];
     res.on('data', function(chunk) {
