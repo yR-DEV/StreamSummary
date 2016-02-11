@@ -31,11 +31,11 @@ class StatsController {
             }
             //needed a function to initially use an http.get
             //because timer will be set to ~30 mins?
-            if(initialGet === 0) {
-                  update();
-                  initialGet += 1;
-            }
-            $interval(update, 15000);
+            // if(initialGet === 0) {
+            //       update();
+            //       initialGet += 1;
+            // }
+            // $interval(update, 15000);
       }
 
 }
