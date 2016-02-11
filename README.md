@@ -1,3 +1,5 @@
+![alt text](http://www-cdn.jtvnw.net/images/twitch_logo3.jpg)
+
 STREAMS SUMMARY
 =====
 
@@ -62,7 +64,9 @@ Running `npm test` will run the unit tests with karma.
 - ~~Set up graph controller to pull the X most recent ticks from the mongo collection and display them accordingly.~~~
     * ~~I feel like I am going to have to refactor the code I write for this.~~
 - Figure out why the initial and subsequent API calls are being executed twice.
-- ~~Should I use async promises for my mongoose database interactions...?~~   
+- ~~Should I use an external library for async promises for my mongoose database interactions...?~~
+- Organize the `.find({}).sort{"_id": 1}.limit(10?)` query returned to the front end so it's ready for the rendering of the graph
+    * Can I have a break in the y-axis (significantly more viewers then channels live) ?
 
 
 ## Things to learn

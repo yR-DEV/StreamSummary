@@ -9,6 +9,9 @@ var options = {
     path: '/kraken/streams/summary'
 };
 
+//http request whose data is sent to stats.controller.js
+//and then returned to the front end where it is rendered
+//on top of the jumbotron in the stats component
 https.get(options, function(res) {
     var bodyChunks = [];
     res.on('data', function(chunk) {
@@ -22,7 +25,7 @@ https.get(options, function(res) {
             "channels": body.channels,
             "viewers": body.viewers
         };
-        // console.log('FINAL OBJ: ', statTick);
+        //Save the data from the timed api call
         controller.saveStats(statTick);
     })
 }).on('error', function(e) {

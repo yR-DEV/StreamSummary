@@ -2,6 +2,7 @@
 
 class StatsController {
 
+      //controller constructor
       constructor($http, $interval) {
             this.$http = $http;
             this.$interval = $interval;
