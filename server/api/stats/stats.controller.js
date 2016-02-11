@@ -11,6 +11,16 @@
 
 import _ from 'lodash';
 import Stats from './stats.model';
+import mongoose from 'mongoose';
+// var mongoose = require('mongoose');
+
+var StatsSchema = new mongoose.Schema({
+  date: String,
+  channels: Number,
+  viewers: Number
+});
+
+var Tick = mongoose.model('Statistics', StatsSchema);
 
 export function create(req, res) {
     //var tickEntry = new StatsSchema(req.body);
@@ -18,8 +28,19 @@ export function create(req, res) {
     //     console.log('saved');
     //     res.json(200);
     // })
-    console.log(req.body);
-    res.json(200);
+    var tickEntry = new Tick(req.body);
+    tickEntry.save(function(err) {
+        if(err) {
+            res.json(err);
+            return err;
+        } else {
+            res.json(200);
+        }
+        // console.log(err);
+        // res.json(200);
+    });
+    // console.log(req.body);
+    // res.json(200);
 }
 
 //
