@@ -75,4 +75,4 @@ function getKraken() {
     });
 }
 
-setInterval(getKraken, 1000);
+setInterval(getKraken, 60000);

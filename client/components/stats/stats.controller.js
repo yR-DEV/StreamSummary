@@ -30,7 +30,7 @@ class StatsController {
             //       query();
             //       initialGet += 1;
             // }
-            $interval(query, 10000);
+            $interval(query, 59000);
       }
 
 }

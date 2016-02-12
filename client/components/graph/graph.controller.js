@@ -35,10 +35,18 @@ class GraphController {
             };
             response.data.forEach(function(entry) {
                 data.labels.push(entry.date);
-                data.datasets[0].data.push(entry.channels);
-                data.datasets[1].data.push(entry.viewers);
-                //console.log(entry);
+                if(entry.channels == undefined || entry.channels == 0) {
+                    data.datasets[0].data.push(0)
+                } else {
+                    data.datasets[0].data.push(entry.channels);
+                }
+                if(entry.viewers == undefined || entry.viewers == 0) {
+                    data.datasets[0].data.push(0)
+                } else {
+                    data.datasets[0].data.push(entry.viewers);
+                }
             });
+            //console.log(data);
             var myLineChart = new Chart(ctx).Line(data);
         });
     }
