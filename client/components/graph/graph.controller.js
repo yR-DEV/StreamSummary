@@ -41,9 +41,9 @@ class GraphController {
                     data.datasets[0].data.push(entry.channels);
                 }
                 if(entry.viewers == undefined || entry.viewers == 0) {
-                    data.datasets[0].data.push(0)
+                    data.datasets[1].data.push(0)
                 } else {
-                    data.datasets[0].data.push(entry.viewers);
+                    data.datasets[1].data.push(entry.viewers);
                 }
             });
             //console.log(data);
