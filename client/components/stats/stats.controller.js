@@ -36,8 +36,6 @@ class StatsController {
 
 
             let setTickDate = (tick) => {
-                //console.log('*** MOST RECENT KRAKEN CALL ***');
-                //console.log(tick);
                 this.statDate = tick.data[0].date;
             }
 
@@ -47,7 +45,6 @@ class StatsController {
             }
             $interval(getLastUpdateDate, 30000)
       }
-
 }
 
 angular.module('StreamSummaryApp')

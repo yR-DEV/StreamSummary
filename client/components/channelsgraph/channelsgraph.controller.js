@@ -1,5 +1,6 @@
 'use-strict';
 
+
 class ChannelsGraphController {
     constructor($http, $interval) {
         this.$http = $http;

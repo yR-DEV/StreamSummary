@@ -9,6 +9,7 @@ var router = express.Router();
 router.get('/graphstats', controller.graphstats);
 router.get('/statstable', controller.statstable);
 router.get('/lastentry', controller.lastentry);
+router.get('/averagestats', controller.averagestats);
 //router.post('/saveStats', controller.savestats);
 // router.put('/:id', controller.update);
 // router.patch('/:id', controller.update);
