@@ -43,21 +43,31 @@ class AverageViewerGraphsController {
             let secondQuarterViewerAveragesGraph = new Chart(ctx2).Line(d2);
         }
 
-
         this.toggleViewerAverageGraphs = () => {
             if(this.showGraphs === false) {
                 this.showGraphs = true;
-                if(initialRender === 0) {
-                    initialRender += 1;
-                    $timeout(getAverageViewerStats, 1500);
-                }
-                $interval(getAverageViewerStats, 63000);
+                beginRender();
+                // if(initialRender === 0) {
+                //     initialRender += 1;
+                //     $timeout(getAverageViewerStats, 1500);
+                // }
+                // $interval(getAverageViewerStats, 63000);
             } else {
                 initialRender = 0;
                 this.showGraphs = false;
             }
         }
 
+        let beginRender = () => {
+            if(initialRender === 0) {
+                initialRender += 1;
+                $timeout(getAverageViewerStats, 1500);
+            }
+            $interval(getAverageViewerStats, 63000);
+        }
+
+        //put in a different file?
+        //refactor somehow?
         let data1 = {
             labels: [],
             datasets: [

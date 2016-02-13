@@ -74,10 +74,12 @@ Running `npm test` will run the unit tests with karma.
 - ~~Use chart.js's update method to update the graph on every back end api call tick.~~
     * I just set a $timeout to update the graph whenever an api call is made
 - ~~Change the last refreshed date to match the date of the back end api tick.~~
-- Create/brainstorm a way to average out the viewers and channels for each hour of the day (?)
-    * Look at the average X viewers/channels for like each hour?
-- DOING AVERAGES FOR EACH HOUR, NEED TO ENTER 1 ENTRY INTO AverageSchema IN ORDER FOR THE LOGIC TO WORK. NEED TO ASK SOMEONE ABIOUT THIS LATER    
-
+- ~~Create/brainstorm a way to average out the viewers and channels for each hour of the day (?)~~
+    * ~~Look at the average X viewers/channels for like each hour?~~
+- ~~DOING AVERAGES FOR EACH HOUR, NEED TO ENTER 1 ENTRY INTO AverageSchema IN ORDER FOR THE LOGIC TO WORK. NEED TO ASK SOMEONE ABIOUT THIS LATER~~    
+- Refactor refactor refactor!!!
+- Consider using the update method for chart.js instead of just rerendeing..
+    * I just like the rendering animation even though its harder to see the change in the graph.
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~

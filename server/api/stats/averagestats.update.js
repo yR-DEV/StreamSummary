@@ -8,7 +8,6 @@ import StatsSchema from './stats.model';
 import AverageSchema from './averagestats.model';
 import controller from './stats.controller';
 
-
 module.exports = {
     getAndUpdateAverageStats: function() {
         let day = new AverageSchema;
