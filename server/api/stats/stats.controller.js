@@ -16,12 +16,8 @@ import dateformat from 'dateformat';
 import StatsSchema from './stats.model';
 import AverageSchema from './averagestats.model';
 import averagestatsupdate from './averagestats.update.js';
-
-//I need to start the counter at one thanks to the index starting at 0
+//change this to 0 upon launch
 let hourCounter = 22;
-//saves individual ticks of the api calls from stats.get.js
-//this was originally on the client side but I realized
-//that all clients would be pushing data to the db which skews the data
 
 export function averagestats(req, res) {
     AverageSchema.find().sort({"date": -1}).limit(1).then(function(averages) {
@@ -98,6 +94,7 @@ function getKraken() {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
+            console.log(statTick);
             saveStats(statTick);
         })
     }).on('error', function(e) {

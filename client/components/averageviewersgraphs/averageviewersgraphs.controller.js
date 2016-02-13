@@ -26,22 +26,15 @@ class AverageViewerGraphsController {
             d2q.datasets[0].data = [];
 
 
-            res.data[0].firstquarter.forEach(function(hour, i) {
+            res.data[0].firsthalf.forEach(function(hour, i) {
                 d1q.labels.push(hour.hour + ":00");
                 d1q.datasets[0].data.push(hour.viewers);
             });
-            res.data[0].secondquarter.forEach(function(hour, i) {
-                d1q.labels.push(hour.hour + ":00");
-                d1q.datasets[0].data.push(hour.viewers);
-            });
-            res.data[0].thirdquarter.forEach(function(hour, i) {
+            res.data[0].secondhalf.forEach(function(hour, i) {
                 d2q.labels.push(hour.hour + ":00");
                 d2q.datasets[0].data.push(hour.viewers);
             });
-            res.data[0].fourthquarter.forEach(function(hour, i) {
-                d2q.labels.push(hour.hour + ":00");
-                d2q.datasets[0].data.push(hour.viewers);
-            });
+
             renderGraphs(d1q, d2q);
         }
 

@@ -27,20 +27,12 @@ class AverageGraphsController {
             d2q.labels = [];
             d2q.datasets[0].data = [];
 
-            res.data[0].firstquarter.forEach(function(hour) {
+            res.data[0].firsthalf.forEach(function(hour) {
                 d1q.labels.push(hour.hour + ":00");
                 d1q.datasets[0].data.push(hour.channels);
             })
-            res.data[0].secondquarter.forEach(function(hour) {
-                d1q.labels.push(hour.hour + ":00");
-                d1q.datasets[0].data.push(hour.channels);
-            })
-            res.data[0].thirdquarter.forEach(function(hour) {
+            res.data[0].secondhalf.forEach(function(hour) {
                 d2q.labels.push(hour.hour + ":00");
-                d2q.datasets[0].data.push(hour.channels);
-            })
-            res.data[0].fourthquarter.forEach(function(hour) {
-                d2q.labels.push(hour.hour + ":00")
                 d2q.datasets[0].data.push(hour.channels);
             })
 
