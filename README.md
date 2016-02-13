@@ -69,6 +69,7 @@ Running `npm test` will run the unit tests with karma.
 - ~~Organize the `.find({}).sort{"_id": 1}.limit(10?)` query returned to the front end so it's ready for the rendering of the graph~~
     * ~~Can I have a break in the y-axis (significantly more viewers then channels live) ?~~
     * ~~I don't think I can have a break in the axis, deciding whether or not to have 2 graphs, one for each statistic, or 2 graphs and a third one with both, or just the combined one or what.~~
+- Create separate graphs for channels and viewers because the two numbers are so far apart, it is hard to see the changes in channels live with the y axis so large. 
 - Use chart.js's update method to update the graph on every back end api call tick.
 - Change the last refreshed date to match the date of the back end api tick.
 

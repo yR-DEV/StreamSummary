@@ -1,9 +1,9 @@
 #stats {
-      width: 800px;
-      background-color: yellow;
-      margin: 0 auto;
-      font-size: 30px;
-      text-align: right;
+
+    width: 800px;
+    margin: 0 auto;
+    font-size: 30px;
+    text-align: right;
 
       .row {
             height: 70px;
@@ -11,5 +11,10 @@
             #stat-date {
                   font-size: 30px;
             }
+      }
+
+      .stats-jumbotron {
+          border-radius: 15px;
+          margin-bottom: 0px !important; 
       }
 }
