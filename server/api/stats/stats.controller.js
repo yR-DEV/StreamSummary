@@ -49,25 +49,28 @@ export function saveStats(statTick) {
 //the call to update the graph will tick milliseconds after this call
 export function graphstats(req, res) {
     return StatsSchema.find().sort({"date": -1}).limit(10).then(function(data) {
+        data.reverse();
         res.json(data);
     });
 }
 
 export function statstable(req, res) {
     return StatsSchema.find().sort({"date": -1}).limit(20).then(function(data) {
+        data.reverse();
         res.json(data);
     });
 }
 
 export function lastentry(req, res) {
-    //console.log(req.body);
     return StatsSchema.find().sort({"date": -1}).limit(1).then(function(data) {
+        data.reverse();
         res.json(data);
     });
 }
 
 export function averageviewerstats(req, res) {
     return AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
+        data.reverse();
         res.json(data);
     });
 }
@@ -95,12 +98,10 @@ function getKraken() {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
-            //Save the data from the kraken call
             saveStats(statTick);
         })
     }).on('error', function(e) {
         console.log('ERROR: ' + e);
     });
 }
-//interval for back end API call-erinOoOOO
 setInterval(getKraken, 60000);

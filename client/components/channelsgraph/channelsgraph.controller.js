@@ -12,7 +12,6 @@ class ChannelsGraphController {
 
         let channelsGraphData = () => {
             $http.get('/api/stats/graphstats').then(response => {
-                console.log('render');
                 let data = {
                     labels: [],
                     datasets: [
@@ -52,7 +51,6 @@ class ChannelsGraphController {
 
         }
 
-        //$timeout.cancel(promise);
         $interval(channelsGraphData, 60000);
     }
 }

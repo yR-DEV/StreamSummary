@@ -8,17 +8,14 @@ class AverageViewerGraphsController {
         this.showGraphs = false;
 
         let initialRender = 0;
-        let ctx1 = document.getElementById('firstQuarterViewerAverages').getContext('2d');
-        let ctx2 = document.getElementById('secondQuarterViewerAverages').getContext('2d');
+        let ctx1 = document.getElementById('firstHalfViewerAverages').getContext('2d');
+        let ctx2 = document.getElementById('secondHalfViewerAverages').getContext('2d');
 
         let getAverageViewerStats = () => {
             $http.get('/api/stats/averageviewerstats').then(response => {
-                console.log(response.data[0].firstquarter);
-
-                let dataFirstQuarter = data1;
-                let dataSecondQuarter = data2;
-
-                setData(response, dataFirstQuarter, dataSecondQuarter);
+                let dataFirstHalf = data1;
+                let dataSecondHalf = data2;
+                setData(response, dataFirstHalf, dataSecondHalf);
             });
         }
 
