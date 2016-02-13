@@ -76,7 +76,8 @@ Running `npm test` will run the unit tests with karma.
 - ~~Change the last refreshed date to match the date of the back end api tick.~~
 - Create/brainstorm a way to average out the viewers and channels for each hour of the day (?)
     * Look at the average X viewers/channels for like each hour?
-    
+- DOING AVERAGES FOR EACH HOUR, NEED TO ENTER 1 ENTRY INTO AverageSchema IN ORDER FOR THE LOGIC TO WORK. NEED TO ASK SOMEONE ABIOUT THIS LATER    
+
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~

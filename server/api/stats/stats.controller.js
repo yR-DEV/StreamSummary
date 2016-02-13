@@ -15,61 +15,22 @@ import fs from 'fs';
 import dateformat from 'dateformat';
 import StatsSchema from './stats.model';
 import AverageSchema from './averagestats.model';
+import averagestatsupdate from './averagestats.update.js';
 
-let hourCounter = 23;
+//I need to start the counter at one thanks to the index starting at 0
+let hourCounter = 22;
 //saves individual ticks of the api calls from stats.get.js
 //this was originally on the client side but I realized
 //that all clients would be pushing data to the db which skews the data
 
-// export function averagestats(req, res) {
-//     //if(hourCounter % 12 == 0) {
-//     console.log('averagestats');
-//         return StatsSchema.find().sort({"date": -1}).limit(12).then(function(data) {
-//             console.log('average stats');
-//             console.log(data);
-//             res.json(200);
-//             return data;
-//         });
-//
-// }
 export function averagestats(req, res) {
-    // if(hourCounter % 12 === 0) {
-    //     console.log('12');
-    //     res.json(200);
-    // }
     res.json(200);
 }
 
-export function getAverageStats() {
-    let day = new AverageSchema;
-    console.log('gngngn12');
-    StatsSchema.find().sort({"date": -1}).limit(24).then(function(data) {
-        data.forEach(function(hour, i) {
-            if(i <= 5) {
-                day.firstquarter.push({ hour: i,
-                                        channels: hour.channels,
-                                        viewers: hour.viewers});
-            } else if (i >= 6 && i <= 11) {
-                day.secondquarter.push({ hour: i,
-                                         channels: hour.channels,
-                                         viewers: hour.viewers});
-            } else if (i >= 12 && i <= 17) {
-                day.thirdquarter.push({ hour: i,
-                                        channels: hour.channels,
-                                        viewers: hour.viewers});
-            } else if(i >= 18 && i <= 23) {
-                day.fourthquarter.push({ hour: i,
-                                         channels: hour.channels,
-                                         viewers: hour.viewers})
-            }
-        });
-        console.log(day);
-    });
-}
-
-
 export function saveStats(statTick) {
-    console.log(statTick);
+    //console.log('STAT COUNTER');
+    //console.log(statTick);
+    console.log('HOUR COUNTER');
     console.log(hourCounter);
     if(statTick.channels === undefined || statTick.viewers === undefined || statTick === {}) {
         getKraken();
@@ -78,19 +39,14 @@ export function saveStats(statTick) {
         return statTickEntry.save(function(err) {
         }).then(function(ret) {
             hourCounter += 1;
-            if(hourCounter % 24 === 0) {
-                console.log('counter 12');
-                getAverageStats();
+            if(hourCounter % 23 === 0) {
+                console.log('counter 12 modulus 23 w00t');
+                averagestatsupdate.getAndUpdateAverageStats();
             }
             return ret;
         });
     }
 }
-
-// if(hourCounter % 12 === 0) {
-//     console.log('counter 12');
-//     getaveragestats();
-// }
 
 //db call to pull the x most recent entries to graph out.
 //the call to update the graph will tick milliseconds after this call
@@ -139,7 +95,6 @@ function getKraken() {
             };
             console.log(statTick);
             //Save the data from the kraken call
-            // console.log(statTick);
             saveStats(statTick);
         })
     }).on('error', function(e) {

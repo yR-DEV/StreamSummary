@@ -11,4 +11,4 @@ let AverageSchema = new mongoose.Schema({
     fourthquarter: Array
 });
 
-module.exports = mongoose.model('AverateStats', AverageSchema);
+module.exports = mongoose.model('AverageStats', AverageSchema);
