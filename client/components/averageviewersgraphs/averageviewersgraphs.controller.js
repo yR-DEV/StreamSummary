@@ -10,6 +10,8 @@ class AverageViewerGraphsController {
         let initialRender = 0;
         let ctx1 = document.getElementById('firstHalfViewerAverages').getContext('2d');
         let ctx2 = document.getElementById('secondHalfViewerAverages').getContext('2d');
+        let firstQuarterViewerAveragesGraph;
+        let secondQuarterViewerAveragesGraph;
 
         let getAverageViewerStats = () => {
             $http.get('/api/stats/averageviewerstats').then(response => {
@@ -47,11 +49,6 @@ class AverageViewerGraphsController {
             if(this.showGraphs === false) {
                 this.showGraphs = true;
                 beginRender();
-                // if(initialRender === 0) {
-                //     initialRender += 1;
-                //     $timeout(getAverageViewerStats, 1500);
-                // }
-                // $interval(getAverageViewerStats, 63000);
             } else {
                 initialRender = 0;
                 this.showGraphs = false;
@@ -61,7 +58,7 @@ class AverageViewerGraphsController {
         let beginRender = () => {
             if(initialRender === 0) {
                 initialRender += 1;
-                $timeout(getAverageViewerStats, 1500);
+                getAverageViewerStats();
             }
             $interval(getAverageViewerStats, 63000);
         }
