@@ -31,6 +31,8 @@ export function saveStats(statTick) {
     console.log(statTick);
     if(statTick.channels === undefined || statTick.viewers === undefined) {
         getKraken();
+    } else if (statTick === {}){
+        console.log('empty?');
     } else {
         var statTickEntry = new Tick(statTick);
         return statTickEntry.save(function(err) {
@@ -54,6 +56,12 @@ export function statstable(req, res) {
     });
 }
 
+export function lastentry(req, res) {
+    console.log(req.body);
+    return Tick.find().sort({"date": -1}).limit(1).then(function(data) {
+        res.json(data);
+    });
+}
 
 var options = {
     host: 'api.twitch.tv',

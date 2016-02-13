@@ -1,6 +1,6 @@
 #stats {
 
-    width: 800px;
+    width: 1200px;
     margin: 0 auto;
     font-size: 30px;
     text-align: right;
@@ -13,9 +13,14 @@
             }
       }
 
-      .stats-jumbotron {
+      .jumbotron {
           border-radius: 15px;
           margin-bottom: 0px !important;
+
+
+        //   .stats-row {
+        //       border-bottom: 1px solid black;
+        //   }
 
           #stat-channel-count {
               text-align: right;
@@ -24,5 +29,15 @@
           #stat-viewer-count {
               text-align: right;
           }
-      }
+
+          h2 {
+              font-weight: bold;
+              padding: 0 !important;
+              margin: 7px 0 0 0 !important;
+          }
+
+          p {
+              margin: 0 !important;
+          }
+    }
 }

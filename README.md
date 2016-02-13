@@ -6,7 +6,7 @@ STREAMS SUMMARY
 ## Explanation/Justification?
 
 ### What it is
-- A simple application that will monitor and record the stream summary numbers from twitch
+- A simple application that will monitor and record the stream summary numbers from twitch.tv, a popular live streaming platform for gamers.
     * url: `https://api.twitch.tv/kraken/streams/summary`
 - The json object returned from the  api query includes:
     * channels: Number (the number of channels on twitch that are currently streaming live)
@@ -18,6 +18,7 @@ STREAMS SUMMARY
 - Hopefully learn something from the numbers recorded over a period of time.
 - Validate the increasing presence and popularity of twitch (mostly for myself)
     * Is the total number of viewers increasing at a faster rate than channels?
+        * Are the large fluctuations in viewers due to viewbotting?
     * Other information???
 
 __________
@@ -69,13 +70,16 @@ Running `npm test` will run the unit tests with karma.
 - ~~Organize the `.find({}).sort{"_id": 1}.limit(10?)` query returned to the front end so it's ready for the rendering of the graph~~
     * ~~Can I have a break in the y-axis (significantly more viewers then channels live) ?~~
     * ~~I don't think I can have a break in the axis, deciding whether or not to have 2 graphs, one for each statistic, or 2 graphs and a third one with both, or just the combined one or what.~~
-- Create separate graphs for channels and viewers because the two numbers are so far apart, it is hard to see the changes in channels live with the y axis so large. 
-- Use chart.js's update method to update the graph on every back end api call tick.
-- Change the last refreshed date to match the date of the back end api tick.
-
+- ~~Create separate graphs for channels and viewers because the two numbers are so far apart, it is hard to see the changes in channels live with the y axis so large.~~
+- ~~Use chart.js's update method to update the graph on every back end api call tick.~~
+    * I just set a $timeout to update the graph whenever an api call is made
+- ~~Change the last refreshed date to match the date of the back end api tick.~~
+- Create/brainstorm a way to average out the viewers and channels for each hour of the day (?)
+    * Look at the average X viewers/channels for like each hour?
+    
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~
-    * Do I need to set any custom global settings for my line graph?
-    * how does the chart.js `update()` exactly work? Does it rerender or do I need a page refresh (Please be the former...)
+    * ~~Do I need to set any custom global settings for my line graph?~~
+    * ~~how does the chart.js `update()` exactly work? Does it rerender or do I need a page refresh (Please be the former...)~~
 - ~~exactly how these front end angular components are compiled so I can use it like a react component/class (I have a feeling it is the directive of each component)~~    

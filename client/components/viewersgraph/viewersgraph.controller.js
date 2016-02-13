@@ -10,7 +10,7 @@ class ViewersGraphController {
 
         let viewersGraphData = () => {
             $http.get('/api/stats/graphstats').then(response => {
-                console.log(response);
+                //console.log(response);
                 let data = {
                     labels: [],
                     datasets: [

@@ -8,7 +8,8 @@ class StatsController {
             this.$interval = $interval;
             this.stats = {};
             let initialGet = 0;
-            this.statDate = new Date();
+            let initialDateGet = 0;
+            this.statDate;
             //function to call on the twitch api summary.
             //also includes the post that will send each api call data to the back end
             let query = () => {
@@ -25,7 +26,26 @@ class StatsController {
                   query();
                   initialGet += 1;
             }
-            $interval(query, 1800000);
+            $interval(query, 60000);
+
+            let getLastUpdateDate = () => {
+                $http.get('/api/stats/lastentry').then(response => {
+                    setTickDate(response);
+                });
+            }
+
+
+            let setTickDate = (tick) => {
+                //console.log('*** MOST RECENT KRAKEN CALL ***');
+                //console.log(tick);
+                this.statDate = tick.data[0].date;
+            }
+
+            if(initialDateGet === 0) {
+                initialDateGet += 1;
+                getLastUpdateDate();
+            }
+            $interval(getLastUpdateDate, 30000)
       }
 
 }
