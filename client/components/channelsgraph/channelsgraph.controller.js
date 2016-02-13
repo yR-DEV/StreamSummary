@@ -1,6 +1,5 @@
 'use-strict';
 
-
 class ChannelsGraphController {
     constructor($http, $interval) {
         this.$http = $http;
@@ -48,7 +47,7 @@ class ChannelsGraphController {
             initialRender += 1;
             channelsGraphData();
         }
-        $interval(channelsGraphData, 60000);
+        $interval(channelsGraphData, 63000);
     }
 }
 

@@ -103,4 +103,4 @@ function getKraken() {
     });
 }
 //interval for back end API call-erinOoOOO
-setInterval(getKraken, 10000);
+setInterval(getKraken, 60000);

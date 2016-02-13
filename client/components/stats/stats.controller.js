@@ -26,14 +26,13 @@ class StatsController {
                   query();
                   initialGet += 1;
             }
-            $interval(query, 60000);
+            $interval(query, 61000);
 
             let getLastUpdateDate = () => {
                 $http.get('/api/stats/lastentry').then(response => {
                     setTickDate(response);
                 });
             }
-
 
             let setTickDate = (tick) => {
                 this.statDate = tick.data[0].date;
@@ -43,7 +42,7 @@ class StatsController {
                 initialDateGet += 1;
                 getLastUpdateDate();
             }
-            $interval(getLastUpdateDate, 30000)
+            $interval(getLastUpdateDate, 50000)
       }
 }
 

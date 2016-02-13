@@ -47,7 +47,7 @@ class ViewersGraphController {
             initialRender += 1;
             viewersGraphData();
         }
-        $interval(viewersGraphData, 60000);
+        $interval(viewersGraphData, 61000);
     }
 }
 
