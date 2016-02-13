@@ -12,27 +12,20 @@ import controller from './stats.controller';
 module.exports = {
     getAndUpdateAverageStats: function() {
         let day = new AverageSchema;
-        //console.log('gngngn12');
         StatsSchema.find().sort({"date": -1}).limit(24).then(function(data) {
             data.forEach(function(hour, i) {
                 if(i <= 11) {
                     day.firsthalf.push({ hour: i,
+                                         entries: data.entries + 1,
+                                         channels: hour.channels,
+                                         viewers: hour.viewers});
+                } else if (i >= 12 && i <= 23) {
+                    day.secondhalf.push({ hour: i,
+                                            entries: data.entries + 1,
                                             channels: hour.channels,
                                             viewers: hour.viewers});
-                } else if (i >= 12) {
-                    day.secondhalf.push({ hour: i,
-                                             channels: hour.channels,
-                                             viewers: hour.viewers});
-                }                             
-                // } else if (i >= 12 && i <= 17) {
-                //     day.thirdquarter.push({ hour: i,
-                //                             channels: hour.channels,
-                //                             viewers: hour.viewers});
-                // } else if(i >= 18 && i <= 23) {
-                //     day.fourthquarter.push({ hour: i,
-                //                              channels: hour.channels,
-                //                              viewers: hour.viewers})
-                // }
+                }
+
             });
 
             //THIS WAS FOR THE LOGIC, OF ENTERING A NEW INSTANCE INSIDE THE COLLECTION
@@ -42,32 +35,20 @@ module.exports = {
             let newDay = new AverageSchema;
 
             AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
-                data[0].firstquarter.forEach(function(hour, i) {
-                    newDay.firstquarter.push({
+                data[0].firsthalf.forEach(function(hour, i) {
+                    newDay.firsthalf.push({
                         hour: i,
-                        channels: ((day.firstquarter[i].channels + hour.channels) / 2),
-                        viewers: ((day.firstquarter[i].viewers + hour.viewers) /  2)
+                        entries: day.entries,
+                        channels: ((day.firsthalf[i].channels + hour.channels) / day.entries),
+                        viewers: ((day.firsthalf[i].viewers + hour.viewers) /  day.entries)
                     });
                 })
-                data[0].secondquarter.forEach(function(hour, i) {
-                    newDay.secondquarter.push({
+                data[0].secondhalf.forEach(function(hour, i) {
+                    newDay.secondhalf.push({
                         hour: i,
-                        channels: ((day.secondquarter[i].channels + hour.channels) / 2),
-                        viewers: ((day.secondquarter[i].viewers + hour.viewers) /2 )
-                    })
-                })
-                data[0].thirdquarter.forEach(function(hour, i) {
-                    newDay.thirdquarter.push({
-                        hour: i,
-                        channels: ((day.thirdquarter[i].channels + hour.channels) / 2),
-                        viewers: ((day.thirdquarter[i].viewers + hour.viewers) / 2)
-                    })
-                })
-                data[0].fourthquarter.forEach(function(hour, i) {
-                    newDay.fourthquarter.push({
-                        hour: i,
-                        channels: ((day.fourthquarter[i].channels + hour.channels) / 2),
-                        viewers: ((day.fourthquarter[i].viewers + hour.viewers) / 2)
+                        entries: day.entries,
+                        channels: ((day.secondquarter[i].channels + hour.channels) / day.entries),
+                        viewers: ((day.secondquarter[i].viewers + hour.viewers) / day.entries)
                     })
                 })
             })
