@@ -1,15 +1,18 @@
 'use-strict';
 
 class ChannelsGraphController {
-    constructor($http, $interval) {
+    constructor($http, $interval, $timeout) {
         this.$http = $http;
         this.$interval = $interval;
+        this.$timeout = $timeout;
         let ctx = document.getElementById("channelsGraph").getContext("2d");
         let initialRender = 0;
+        let promise;
+
 
         let channelsGraphData = () => {
             $http.get('/api/stats/graphstats').then(response => {
-                //console.log(response.data);
+                console.log('render');
                 let data = {
                     labels: [],
                     datasets: [
@@ -45,9 +48,12 @@ class ChannelsGraphController {
         }
         if(initialRender === 0) {
             initialRender += 1;
-            channelsGraphData();
+            $timeout(channelsGraphData, 1000);
+
         }
-        $interval(channelsGraphData, 63000);
+
+        //$timeout.cancel(promise);
+        $interval(channelsGraphData, 60000);
     }
 }
 

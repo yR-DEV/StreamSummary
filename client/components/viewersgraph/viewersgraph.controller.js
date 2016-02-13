@@ -2,11 +2,12 @@
 
 class ViewersGraphController {
 
-    constructor($http, $interval) {
+    constructor($http, $interval, $timeout) {
         this.$http = $http;
         this.$interval = $interval;
+        this.$timeout = $timeout;
         let initialRender = 0;
-        let cty = document.getElementById('viewersGraph').getContext("2d");
+        let ctx = document.getElementById('viewersGraph').getContext("2d");
 
         let viewersGraphData = () => {
             $http.get('/api/stats/graphstats').then(response => {
@@ -29,6 +30,7 @@ class ViewersGraphController {
                 setData(response, data);
             });
         }
+
         let setData = (res, data) => {
             res.data.forEach(function(entry) {
                 data.labels.push(entry.date);
@@ -40,12 +42,14 @@ class ViewersGraphController {
             });
             updateViewersGraph(data);
         }
+
         let updateViewersGraph = (data) => {
-            let myLineChart = new Chart(cty).Line(data);
+            let myLineChart = new Chart(ctx).Line(data);
         }
+
         if(initialRender === 0) {
             initialRender += 1;
-            viewersGraphData();
+            $timeout(viewersGraphData, 2500);
         }
         $interval(viewersGraphData, 61000);
     }

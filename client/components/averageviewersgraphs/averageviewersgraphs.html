@@ -1,5 +1,13 @@
 <div ng-controller="AverageViewerGraphsController as averageviewergraphs">
-    <div class="jumbotron averages-jumbotron">
+    <div class="toggle-buttons">
+        <div class="btn-group" role="group" aria-label="..." ng-hide="averageviewergraphs.showGraphs">
+            <button type="button" class="btn btn-default" ng-click="averageviewergraphs.toggleViewerAverageGraphs()">Show Viewer Averages</button>
+        </div>
+        <div class="btn-group" role="group" aria-label="..." ng-hide="!averageviewergraphs.showGraphs">
+            <button type="button" class="btn btn-default" ng-click="averageviewergraphs.toggleViewerAverageGraphs()">Hide Viewer Averages</button>
+        </div>
+    </div>
+    <div class="jumbotron averages-jumbotron" ng-hide="!averageviewergraphs.showGraphs">
         <div class="row">
             <h1>Viewer Averages by Hour</h1>
         </div>

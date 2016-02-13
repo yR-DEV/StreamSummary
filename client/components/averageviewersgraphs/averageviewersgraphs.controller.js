@@ -1,9 +1,11 @@
 'use-strict';
 
 class AverageViewerGraphsController {
-    constructor($http, $interval) {
+    constructor($http, $interval, $timeout) {
         this.$http = $http;
         this.$interval = $interval;
+        this.$timeout = $timeout;
+        this.showGraphs = false;
 
         let initialRender = 0;
         let ctx1 = document.getElementById('firstQuarterViewerAverages').getContext('2d');
@@ -21,11 +23,19 @@ class AverageViewerGraphsController {
                 let dataFourthQuarter = data4;
 
                 setData(response, dataFirstQuarter, dataSecondQuarter, dataThirdQuarter, dataFourthQuarter);
-
             });
         }
 
         let setData = (res, d1q, d2q, d3q, d4q) => {
+            d1q.labels = [];
+            d1q.datasets[0].data = [];
+            d2q.labels = [];
+            d2q.datasets[0].data = [];
+            d3q.labels = [];
+            d3q.datasets[0].data = [];
+            d4q.labels = [];
+            d4q.datasets[0].data = [];
+
             res.data[0].firstquarter.forEach(function(hour, i) {
                 d1q.labels.push(hour.hour + ":00");
                 d1q.datasets[0].data.push(hour.viewers);
@@ -42,7 +52,6 @@ class AverageViewerGraphsController {
                 d4q.labels.push(hour.hour + ":00");
                 d4q.datasets[0].data.push(hour.viewers);
             });
-
             renderGraphs(d1q, d2q, d3q, d4q);
         }
 
@@ -53,14 +62,20 @@ class AverageViewerGraphsController {
             let fourthQuarterViewerAveragesGraph = new Chart(ctx4).Line(d4);
         }
 
-        //set delay/timeout on intial render?!?!!?
-        //=
-        if(initialRender === 0) {
-            initialRender += 1;
-            getAverageViewerStats();
-        }
-        $interval(getAverageViewerStats, 63000);
 
+        this.toggleViewerAverageGraphs = () => {
+            if(this.showGraphs === false) {
+                this.showGraphs = true;
+                if(initialRender === 0) {
+                    initialRender += 1;
+                    $timeout(getAverageViewerStats, 1500);
+                }
+                $interval(getAverageViewerStats, 63000);
+            } else {
+                initialRender = 0;
+                this.showGraphs = false;
+            }
+        }
 
         let data1 = {
             labels: [],

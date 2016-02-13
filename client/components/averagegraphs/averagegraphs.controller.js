@@ -1,9 +1,12 @@
 'use-strict';
 
+
 class AverageGraphsController {
-    constructor($http, $interval) {
+    constructor($http, $interval, $timeout) {
         this.$http = $http;
         this.$interval = $interval;
+        this.$timeout = $timeout;
+        this.showGraphs = false;
         let initialRender = 0;
         let ctx1 = document.getElementById('firstQuarterAverages').getContext('2d');
         let ctx2 = document.getElementById('secondQuarterAverages').getContext('2d');
@@ -23,6 +26,15 @@ class AverageGraphsController {
         }
 
         let setData = (res, d1q, d2q, d3q, d4q) => {
+            d1q.labels = [];
+            d1q.datasets[0].data = [];
+            d2q.labels = [];
+            d2q.datasets[0].data = [];
+            d3q.labels = [];
+            d3q.datasets[0].data = [];
+            d4q.labels = [];
+            d4q.datasets[0].data = [];
+
             res.data[0].firstquarter.forEach(function(hour) {
                 d1q.labels.push(hour.hour + ":00");
                 d1q.datasets[0].data.push(hour.channels);
@@ -50,13 +62,22 @@ class AverageGraphsController {
             var fourthQuarterAverages = new Chart(ctx4).Line(d4);
         }
 
-        if(initialRender === 0) {
-            initialRender =+ 1;
-            getAverageStats();
+        this.toggleChannelAverageGraphs = () => {
+            console.log('clicked');
+            console.log(this.showGraphs);
+            if(this.showGraphs === true) {
+                this.showGraphs = false;
+                initialRender = 0;
+            } else {
+                console.log('get aver fn called below');
+                if(initialRender === 0) {
+                    initialRender =+ 1;
+                    $timeout(getAverageStats, 1500);
+                }
+                $interval(getAverageStats, 63000);
+                this.showGraphs = true;
+            }
         }
-        $interval(getAverageStats, 65000);
-
-
 
 
         let data1 = {

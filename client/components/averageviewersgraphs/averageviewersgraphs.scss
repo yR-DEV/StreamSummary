@@ -1,8 +1,18 @@
+.toggle-buttons {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+
+    .button-container {
+        // margin: 40px auto;
+    }
+
+}
+
 .averages-jumbotron {
     width: 1400px;
     height: auto;
     margin: 40px auto;
-    // padding: 50px;
     border-radius: 15px;
 
     .row {
