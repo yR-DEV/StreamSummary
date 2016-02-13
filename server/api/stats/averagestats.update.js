@@ -15,23 +15,24 @@ module.exports = {
         //console.log('gngngn12');
         StatsSchema.find().sort({"date": -1}).limit(24).then(function(data) {
             data.forEach(function(hour, i) {
-                if(i <= 5) {
-                    day.firstquarter.push({ hour: i,
+                if(i <= 11) {
+                    day.firsthalf.push({ hour: i,
                                             channels: hour.channels,
                                             viewers: hour.viewers});
-                } else if (i >= 6 && i <= 11) {
-                    day.secondquarter.push({ hour: i,
+                } else if (i >= 12) {
+                    day.secondhalf.push({ hour: i,
                                              channels: hour.channels,
                                              viewers: hour.viewers});
-                } else if (i >= 12 && i <= 17) {
-                    day.thirdquarter.push({ hour: i,
-                                            channels: hour.channels,
-                                            viewers: hour.viewers});
-                } else if(i >= 18 && i <= 23) {
-                    day.fourthquarter.push({ hour: i,
-                                             channels: hour.channels,
-                                             viewers: hour.viewers})
-                }
+                }                             
+                // } else if (i >= 12 && i <= 17) {
+                //     day.thirdquarter.push({ hour: i,
+                //                             channels: hour.channels,
+                //                             viewers: hour.viewers});
+                // } else if(i >= 18 && i <= 23) {
+                //     day.fourthquarter.push({ hour: i,
+                //                              channels: hour.channels,
+                //                              viewers: hour.viewers})
+                // }
             });
 
             //THIS WAS FOR THE LOGIC, OF ENTERING A NEW INSTANCE INSIDE THE COLLECTION
