@@ -11,7 +11,7 @@ class StatsController {
             this.statDate = new Date();
             //function to call on the twitch api summary.
             //also includes the post that will send each api call data to the back end
-            var query = () => {
+            let query = () => {
                   $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
                         //making an object so I dont have the kraken link in every single object stored in the db
                         this.stats.channels = response.data.channels;

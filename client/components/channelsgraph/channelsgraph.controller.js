@@ -21,7 +21,7 @@ class ChannelsGraphController {
                         pointHighlightStroke: "rgba(220,220,220,1)",
                         data: []
                     },
-                ]    
+                ]
             };
             response.data.forEach(function(entry) {
                 data.labels.push(entry.date);
@@ -39,6 +39,11 @@ class ChannelsGraphController {
             //console.log(data);
             var myLineChart = new Chart(ctx).Line(data);
         });
+
+        let updateChannelsGraph = (data) => {
+            console.log(data);
+            var myLineChart = new Chart(ctx).Line(data);
+        }
     }
 }
 

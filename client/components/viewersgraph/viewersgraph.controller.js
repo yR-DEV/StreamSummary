@@ -5,11 +5,12 @@ class ViewersGraphController {
     constructor($http, $interval) {
         this.$http = $http;
         this.$interval = $interval;
-
+        let initialRender = 0;
         let cty = document.getElementById('viewersGraph').getContext("2d");
 
+        let viewersGraphData = () => {
             $http.get('/api/stats/graphstats').then(response => {
-                console.log(response.data);
+                console.log(response);
                 let data = {
                     labels: [],
                     datasets: [
@@ -25,19 +26,31 @@ class ViewersGraphController {
                         }
                     ]
                 };
+                setData(response, data);
+            });
+        }
 
-                response.data.forEach(function(entry) {
-                    data.labels.push(entry.date);
-                    if(entry.viewers == undefined || entry.viewers == 0) {
-                        data.datasets[0].data.push(0)
-                    } else {
-                        data.datasets[0].data.push(entry.viewers);
-                    }
-                });
+        let setData = (res, data) => {
+            res.data.forEach(function(entry) {
+                data.labels.push(entry.date);
+                if(entry.viewers == undefined || entry.viewers == 0) {
+                    data.datasets[0].data.push(0)
+                } else {
+                    data.datasets[0].data.push(entry.viewers);
+                }
+            });
+            updateViewersGraph(data);
+        }
 
-                var myLineChart = new Chart(cty).Line(data);
-            })
+        let updateViewersGraph = (data) => {
+            var myLineChart = new Chart(cty).Line(data);
+        }
 
+        if(initialRender === 0) {
+            viewersGraphData();
+            initialRender += 1;
+        }
+        $interval(viewersGraphData, 10000);
     }
 }
 
