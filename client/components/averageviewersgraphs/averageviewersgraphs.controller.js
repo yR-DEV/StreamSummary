@@ -1,49 +1,58 @@
 'use-strict';
 
-class AverageGraphsController {
+class AverageViewerGraphsController {
     constructor($http, $interval) {
         this.$http = $http;
         this.$interval = $interval;
-        let ctx1 = document.getElementById('firstQuarterAverages').getContext('2d');
-        let ctx2 = document.getElementById('secondQuarterAverages').getContext('2d');
-        let ctx3 = document.getElementById('thirdQuarterAverages').getContext('2d');
-        let ctx4 = document.getElementById('fourthQuarterAverages').getContext('2d');
 
-        let getAverageStats = () => {
-            $http.get('/api/stats/averagestats').then(response => {
-                console.log(response);
+        let ctx1 = document.getElementById('firstQuarterViewerAverages').getContext('2d');
+        let ctx2 = document.getElementById('secondQuarterViewerAverages').getContext('2d');
+        let ctx3 = document.getElementById('thirdQuarterViewerAverages').getContext('2d');
+        let ctx4 = document.getElementById('fourthQuarterViewerAverages').getContext('2d');
 
+        let getAverageViewerStats = () => {
+            $http.get('/api/stats/averageviewerstats').then(response => {
+                console.log(response.data[0].firstquarter);
 
                 let dataFirstQuarter = data1;
                 let dataSecondQuarter = data2;
                 let dataThirdQuarter = data3;
                 let dataFourthQuarter = data4;
-                // console.log(response.data[0].firstquarter);
-                response.data[0].firstquarter.forEach(function(hour) {
+
+                // for(var i = 0; i <= response.data[0].firstquarter.length; i++) {
+                //     console.log(response.data[0].firstquarter[i]);
+                // }
+                response.data[0].firstquarter.forEach(function(hour, i) {
                     dataFirstQuarter.labels.push(hour.hour + ":00");
-                    dataFirstQuarter.datasets[0].data.push(hour.channels);
-                })
-                response.data[0].secondquarter.forEach(function(hour) {
+                    dataFirstQuarter.datasets[0].data.push(hour.viewers);
+                });
+                response.data[0].secondquarter.forEach(function(hour, i) {
                     dataSecondQuarter.labels.push(hour.hour + ":00");
-                    dataSecondQuarter.datasets[0].data.push(hour.channels);
-                })
-                response.data[0].thirdquarter.forEach(function(hour) {
+                    dataSecondQuarter.datasets[0].data.push(hour.viewers);
+                });
+                response.data[0].thirdquarter.forEach(function(hour, i) {
                     dataThirdQuarter.labels.push(hour.hour + ":00");
-                    dataThirdQuarter.datasets[0].data.push(hour.channels);
-                })
-                response.data[0].fourthquarter.forEach(function(hour) {
-                    dataFourthQuarter.labels.push(hour.hour + ":00")
-                    dataFourthQuarter.datasets[0].data.push(hour.channels);
-                })
+                    dataThirdQuarter.datasets[0].data.push(hour.viewers);
+                });
+                response.data[0].fourthquarter.forEach(function(hour, i) {
+                    dataFourthQuarter.labels.push(hour.hour + ":00");
+                    dataFourthQuarter.datasets[0].data.push(hour.viewers);
+                });
 
-                var firstQuarterAverages = new Chart(ctx1).Line(dataFirstQuarter);
-                var secondQuarterAverages = new Chart(ctx2).Line(dataSecondQuarter);
-                var thirdQuarterAverages = new Chart(ctx3).Line(dataThirdQuarter);
-                var fourthQuarterAverages = new Chart(ctx4).Line(dataFourthQuarter);
-            })
+                console.log(dataFirstQuarter);
+
+
+
+
+
+                let firstQuarterViewerAveragesGraph = new Chart(ctx1).Line(dataFirstQuarter);
+                let secondQuarterViewerAveragesGraph = new Chart(ctx2).Line(dataSecondQuarter);
+                let thirdQuarterViewerAveragesGraph = new Chart(ctx3).Line(dataThirdQuarter);
+                let fourthQuarterViewerAveragesGraph = new Chart(ctx4).Line(dataFourthQuarter);
+            });
         }
-        getAverageStats();
 
+        getAverageViewerStats();
 
 
 
@@ -111,4 +120,4 @@ class AverageGraphsController {
 }
 
 angular.module('StreamSummaryApp')
-    .controller('AverageGraphsController', AverageGraphsController);
+    .controller('AverageViewerGraphsController', AverageViewerGraphsController);

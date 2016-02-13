@@ -24,14 +24,12 @@ let hourCounter = 22;
 //that all clients would be pushing data to the db which skews the data
 
 export function averagestats(req, res) {
-    res.json(200);
+    AverageSchema.find().sort({"date": -1}).limit(1).then(function(averages) {
+        res.json(averages);
+    })
 }
 
 export function saveStats(statTick) {
-    //console.log('STAT COUNTER');
-    //console.log(statTick);
-    console.log('HOUR COUNTER');
-    console.log(hourCounter);
     if(statTick.channels === undefined || statTick.viewers === undefined || statTick === {}) {
         getKraken();
     } else {
@@ -40,7 +38,6 @@ export function saveStats(statTick) {
         }).then(function(ret) {
             hourCounter += 1;
             if(hourCounter % 23 === 0) {
-                console.log('counter 12 modulus 23 w00t');
                 averagestatsupdate.getAndUpdateAverageStats();
             }
             return ret;
@@ -69,6 +66,11 @@ export function lastentry(req, res) {
     });
 }
 
+export function averageviewerstats(req, res) {
+    return AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
+        res.json(data);
+    });
+}
 
 var options = {
     host: 'api.twitch.tv',
@@ -93,7 +95,6 @@ function getKraken() {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
-            console.log(statTick);
             //Save the data from the kraken call
             saveStats(statTick);
         })

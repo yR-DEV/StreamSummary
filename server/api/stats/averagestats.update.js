@@ -69,8 +69,6 @@ module.exports = {
                         viewers: ((day.fourthquarter[i].viewers + hour.viewers) / 2)
                     })
                 })
-                console.log('NEW DAY FCKING BELOW');
-                console.log(newDay);
             })
         });
     }

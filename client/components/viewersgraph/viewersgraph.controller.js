@@ -19,7 +19,7 @@ class ViewersGraphController {
                             fillColor: "rgba(187,119,209,0.2)",
                             strokeColor: "rgba(187,119,209,1)",
                             pointColor: "rgba(187,119,209,0.75)",
-                            pointStrokeColor: "#fff",
+                            pointColor: "rgba(187,119,209,0.75)",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(151,187,205,1)",
                             data: []
