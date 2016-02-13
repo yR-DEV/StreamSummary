@@ -1,15 +1,21 @@
 #viewers-graph {
 
-    .graph-header {
-        text-align: center;
-    }
+    .viewers-graph-jumbotron {
+        width: 900px;
+        margin: 40px auto;
+        border-radius: 15px;
 
-    #viewers-line-graph {
-        width: 800px !important;
-        margin: 0 auto;
+        .graph-header {
+            text-align: center;
+        }
 
-        #viewersGraph {
-            width: 400px;
+        #viewers-line-graph {
+            width: 800px !important;
+            margin: 0 auto;
+
+            #viewersGraph {
+                width: 400px;
+            }
         }
     }
 }

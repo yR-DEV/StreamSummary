@@ -1,0 +1,54 @@
+
+
+#stats-table {
+    width: 1000px;
+    margin: 0 auto;
+     h2 {
+         text-align: center;
+     }
+
+     .jumbotron {
+         padding-top: 5px !important;
+         padding-bottom: 25px !important;
+     }
+
+     .stats-table-jumbotron {
+         border-radius: 15px;
+
+         table {
+             margin: 0 auto;
+
+             #table-header-row {
+
+                 #viewers-table-header {
+                     text-align: right;
+                 }
+
+                 #channels-table-header {
+                     text-align: right;
+                 }
+             }
+
+             tr {
+                 font-size: 18px;
+                 border-bottom: 2px solid #D49DED;
+                //  width:1200px;
+                 height: 40px !important;
+
+                 .stats-table-date: {
+                     width: 33%;
+                 }
+
+                 .stats-table-viewers {
+                     text-align: right;
+                     width: 33%;
+                 }
+
+                 .stats-table-channels {
+                     text-align: right;
+                     width: 33%;
+                 }
+             }
+         }
+     }
+}

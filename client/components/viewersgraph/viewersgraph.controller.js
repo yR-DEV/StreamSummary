@@ -16,9 +16,9 @@ class ViewersGraphController {
                     datasets: [
                         {
                             label: "Active Viewers",
-                            fillColor: "rgba(151,187,205,0.2)",
-                            strokeColor: "rgba(151,187,205,1)",
-                            pointColor: "rgba(151,187,205,1)",
+                            fillColor: "rgba(187,119,209,0.2)",
+                            strokeColor: "rgba(187,119,209,1)",
+                            pointColor: "rgba(187,119,209,0.75)",
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -29,7 +29,6 @@ class ViewersGraphController {
                 setData(response, data);
             });
         }
-
         let setData = (res, data) => {
             res.data.forEach(function(entry) {
                 data.labels.push(entry.date);
@@ -41,16 +40,14 @@ class ViewersGraphController {
             });
             updateViewersGraph(data);
         }
-
         let updateViewersGraph = (data) => {
-            var myLineChart = new Chart(cty).Line(data);
+            let myLineChart = new Chart(cty).Line(data);
         }
-
         if(initialRender === 0) {
-            viewersGraphData();
             initialRender += 1;
+            viewersGraphData();
         }
-        $interval(viewersGraphData, 10000);
+        $interval(viewersGraphData, 60000);
     }
 }
 

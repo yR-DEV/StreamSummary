@@ -10,7 +10,6 @@
 'use strict';
 
 import _ from 'lodash';
-import Stats from './stats.model';
 import mongoose from 'mongoose';
 import https from 'https';
 import fs from 'fs';
@@ -44,10 +43,17 @@ export function saveStats(statTick) {
 //db call to pull the x most recent entries to graph out.
 //the call to update the graph will tick milliseconds after this call
 export function graphstats(req, res) {
-    return Tick.find().sort({"date": -1}).limit(7).then(function(data) {
+    return Tick.find().sort({"date": -1}).limit(10).then(function(data) {
         res.json(data);
     });
 }
+
+export function statstable(req, res) {
+    return Tick.find().sort({"date": -1}).limit(20).then(function(data) {
+        res.json(data);
+    });
+}
+
 
 var options = {
     host: 'api.twitch.tv',
@@ -81,5 +87,5 @@ function getKraken() {
         console.log('ERROR: ' + e);
     });
 }
-
-setInterval(getKraken, 10000);
+//interval for back end API call-erinOoOOO
+setInterval(getKraken, 60000);

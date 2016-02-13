@@ -1,0 +1,29 @@
+<div ng-controller="StatsTableController as statstable" id="stats-table">
+    <div class="jumbotron stats-table-jumbotron">
+        <h2>Past 20 Records: </h2>
+        <table>
+            <tr id="table-header-row">
+                <th>
+                    Date:
+                </th>
+                <th id="viewers-table-header">
+                    Viewers Active:
+                </th>
+                <th id="channels-table-header">
+                    Channels Live:
+                </th>
+            </tr>
+            <tr ng-repeat="entry in statstable.stats">
+                <td class="stats-table-date">
+                    {{entry.date}}
+                </td>
+                <td class="stats-table-viewers">
+                    {{entry.viewers}}
+                </td>
+                <td class="stats-table-channels">
+                    {{entry.channels}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

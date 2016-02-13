@@ -1,18 +1,23 @@
 #channels-graph {
+    // margin-bottom: 70px;
 
-    margin-bottom: 70px;
+    .channels-graph-jumbotron {
+        width: 900px;
+        margin: 40px auto;
+        border-radius: 15px;
 
-    .graph-header {
-        text-align: center;
+        .graph-header {
+            text-align: center;
 
-    }
+        }
 
-    #channels-line-graph {
-        width: 800px !important;
-        margin: 0 auto;
+        #channels-line-graph {
+            width: 800px !important;
+            margin: 0 auto;
 
-        #channelsGraph {
-            width: 400px;
+            #channelsGraph {
+                width: 400px;
+            }
         }
     }
 }

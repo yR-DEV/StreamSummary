@@ -15,6 +15,14 @@
 
       .stats-jumbotron {
           border-radius: 15px;
-          margin-bottom: 0px !important; 
+          margin-bottom: 0px !important;
+
+          #stat-channel-count {
+              text-align: right;
+          }
+
+          #stat-viewer-count {
+              text-align: right;
+          }
       }
 }
