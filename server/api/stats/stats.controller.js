@@ -73,7 +73,7 @@ function getKraken() {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
-            //Save the data from the timed api call
+            //Save the data from the kraken call
             console.log(statTick);
             saveStats(statTick);
         })

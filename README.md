@@ -63,14 +63,18 @@ Running `npm test` will run the unit tests with karma.
 - ~~mongo configuration options for the server in files:~~
 - ~~Set up graph controller to pull the X most recent ticks from the mongo collection and display them accordingly.~~~
     * ~~I feel like I am going to have to refactor the code I write for this.~~
-- Figure out why the initial and subsequent API calls are being executed twice.
+- ~~Figure out why the initial and subsequent API calls are being executed twice.~~
+    * ~~Because these calls are basically being called on the front end and have no interaction with inserting records into the database, it is ok.~~
 - ~~Should I use an external library for async promises for my mongoose database interactions...?~~
-- Organize the `.find({}).sort{"_id": 1}.limit(10?)` query returned to the front end so it's ready for the rendering of the graph
-    * Can I have a break in the y-axis (significantly more viewers then channels live) ?
+- ~~Organize the `.find({}).sort{"_id": 1}.limit(10?)` query returned to the front end so it's ready for the rendering of the graph~~
+    * ~~Can I have a break in the y-axis (significantly more viewers then channels live) ?~~
+    * ~~I don't think I can have a break in the axis, deciding whether or not to have 2 graphs, one for each statistic, or 2 graphs and a third one with both, or just the combined one or what.~~
+- Use chart.js's update method to update the graph on every back end api call tick.
+- Change the last refreshed date to match the date of the back end api tick.
 
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~
     * Do I need to set any custom global settings for my line graph?
     * how does the chart.js `update()` exactly work? Does it rerender or do I need a page refresh (Please be the former...)
-- exactly how these front end angular components are compiled so I can use it like a react component/class (I have a feeling it is the directive of each component)    
+- ~~exactly how these front end angular components are compiled so I can use it like a react component/class (I have a feeling it is the directive of each component)~~    
