@@ -76,10 +76,6 @@ var options = {
     path: '/kraken/streams/summary'
 };
 
-//http request whose data is sent to stats.controller.js
-//and then returned to the front end where it is rendered
-//on top of the jumbotron in the stats component
-//SET INTERVAL GOES HERE (WORKING)
 function getKraken() {
     https.get(options, function(res) {
         let bodyChunks = [];
@@ -94,7 +90,7 @@ function getKraken() {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
-            console.log(statTick);
+            //console.log(statTick);
             saveStats(statTick);
         })
     }).on('error', function(e) {
