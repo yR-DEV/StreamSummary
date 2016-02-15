@@ -1,4 +1,4 @@
-<div ng-controller="ChannelsGraphController as channelsgraph" id="channels-graph">
+<div ng-controller="ChannelsGraphController as channelsgraph" id="channels-graph" >
     <div class="jumbotron channels-graph-jumbotron">
         <div id="channel-filter-label">
             <h3>Filter By: </h3>
@@ -11,10 +11,14 @@
             </div>
         </div>
         <div class="graph-header">
-            <h2>Past Live Channel Data</h2>
+            <h2>Channel Data By: {{channelsgraph.time}}</h2>
+        </div>
+        <div id="channelsgraph.recordsError" ng-show="channelsgraph.notEnoughRecords">
+            <h2>ERROR: Not enough entries</h2>
+            <h2>to render graph.</h2>
         </div>
         <div id="channels-line-graph">
-            <canvas id="channelsGraph" width="400" height="400"></canvas>
+            <canvas id="channelsGraphMinutes" width="400" height="400" ng-show="channelsgraph.timeGraphToggler = 'minutes'"></canvas>
         </div>
     </div>
 </div>

@@ -13,32 +13,30 @@ export function sortstats(req, res) {
     }
 }
 
+//returning 8 records to the front end
 export function channelStats(req, res) {
-    //returning 8 records to the front end
+    console.log(req.body);
     if(req.body.time === 'minute') {
         return StatsSchema.find().sort({"_id": -1}).limit(8).then(function(minutedata) {
             minutedata.reverse();
-            return minutedata;
-            // res.json(minutedata);
+            console.log(minutedata);
+            res.json(minutedata);
         });
     }
-    //returning 8 records to the front end
-    //logic to sort 8 hours in fn setHourData below
     if(req.body.time === 'hour') {
         return StatsSchema.find().sort({"_id": -1}).limit(480).then(function(hourdata) {
             if(hourdata.length < 480) {
-                res.json(200);
+                res.send(false);
             } else {
                 req.body.hourData = hourdata;
                 return sortHourData(req, res);
             }
         })
     }
-    //8 days going back to the front end
     if(req.body.time === 'day') {
         return StatsSchema.find().sort({"_id": -1}).limit(11520).then(function(daydata) {
             if(daydata.length < 11520) {
-                //need to send string to front end
+                res.send(false);
             } else {
                 req.body.dayData = daydata;
                 return sortDayData(req, res);
@@ -47,7 +45,10 @@ export function channelStats(req, res) {
     }
 }
 
+//60 minutes in a day Kappa
 export function sortHourData(req, res) {
+    console.log(req.body.statType);
+    let days = [];
     let hours = [];
     for(var i = 0; i <= 7; i++) {
         let hourStartingTime;
@@ -66,7 +67,6 @@ export function sortHourData(req, res) {
         hours.push({ date: hourStartingTime, channels: perHourAverage });
     }
     hours.reverse();
-    //return hours;
     res.json(hours);
 }
 
@@ -91,6 +91,5 @@ export function setDayData(req, res) {
         days.push({ date: dayStartingTime, channels: perDayAverage });
     }
     days.reverse();
-    //return days;
     res.json(days);
 }
