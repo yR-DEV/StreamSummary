@@ -15,16 +15,67 @@ export function getaverages(req, res) {
 }
 
 export function channelStats(req, res) {
+    //returning 8 records to the front end
     if(req.body.time === 'minute') {
-        res.json(200);
+        StatsSchema.find().sort({"_id": -1}).limit(10).then(function(minutedata) {
+            minutedata.reverse();
+            res.json(minutedata);
+        });
     }
+    //returning 8 records to the front end
     if(req.body.time === 'hour') {
-        res.json(200);
+        StatsSchema.find().sort({"_id": -1}).limit(480).then(function(hourdata) {
+            if(hourdata.length < 480) {
+                res.json(200);
+            } else {
+                req.body.hourData = hourdata;
+                sortHourData(req, res);
+            }
+        })
     }
+    //8 days going back to the front end
     if(req.body.time === 'day') {
         res.json(200);
     }
 }
+
+export function sortHourData(req, res) {
+    let hours = [];
+    for(var i = 0; i <= 7; i++) {
+        let hourStartingTime;
+        let perHourAverage;
+
+        for(var y = 0; y <= 59; y++) {
+            if(!perHourAverage) {
+                perHourAverage = req.body.hourData[0].channels;
+                hourStartingTime = req.body.hourData[0].date;
+                req.body.hourData.splice(0, 1);
+            } else {
+                perHourAverage = Math.floor((perHourAverage += req.body.hourData[0].channels) / 2);
+                req.body.hourData.splice(0, 1);
+            }
+        }
+        hours.push({ date: hourStartingTime, channels: perHourAverage });
+    }
+    hours.reverse();
+    res.json(hours);
+}
+
+
+// let hourStartingTime;
+// let perHourAverage;
+//
+//     for(var y = 0; y <= hourItemsLength; y++) {
+//         if(y === 0) {
+    //    perHourAverage = req.body.hourData[y].channels;
+    //    hourStartingTime = req.body.hourData[y].date
+//         } else {
+//             perHourAverage = Math.floor((perHourAverage += req.body.hourData[y].channels) / 2);
+//         }
+//     }
+//     hours.push({ date: hourStartingTime, channels: perHourAverage });
+// };
+// console.log(hours);
 
 // { stat: 'channel', time: 'minute' }
 // { stat: 'channel', time: 'hour' }

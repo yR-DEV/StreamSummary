@@ -9,9 +9,7 @@ class ChannelsGraphController {
         let initialRender = 0;
 
         this.filterGraphByTime = (typeFilter) => {
-            console.log(typeFilter);
             let typeAndTime = { statType: 'channel', time: typeFilter };
-            console.log(typeAndTime);
             channelsGraphData(typeAndTime);
         }
 
