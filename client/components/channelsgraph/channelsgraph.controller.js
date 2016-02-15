@@ -7,24 +7,8 @@ class ChannelsGraphController {
         this.$timeout = $timeout;
         let ctm = document.getElementById("channelsGraphMinutes").getContext("2d");
         let timeGraphToggler;
-        // let myLineChart;
+        let myLineChart;
         let counter = 0;
-
-        let data = {
-            labels: [],
-            datasets: [
-                {
-                    label: "Live Channels",
-                    fillColor: "rgba(187,119,209,0.2)",
-                    strokeColor: "rgba(187,119,209,1)",
-                    pointColor: "rgba(187,119,209,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: []
-                },
-            ]
-        };
 
         this.filterGraphByTime = (typeFilter) => {
             let typeAndTime = { statType: 'channel', time: typeFilter };
@@ -33,12 +17,10 @@ class ChannelsGraphController {
             this.notEnoughRecords = false;
         }
 
-        let getGraphData = (typeAndTime) => {
-            console.log(typeAndTime);
-            $http.post('/api/stats/sortchannelstats', typeAndTime).then(response => {
-                console.log('RESPONSE');
-                console.log(response);
+        let getGraphData = (query) => {
+            $http.post('/api/stats/sortchannelstats', query).then(response => {
                 if(response.data !== false) {
+                    console.log(response);
                     setData(response);
                 } else {
                     this.notEnoughRecords = true;
@@ -47,7 +29,7 @@ class ChannelsGraphController {
         };
 
         let setData = (res) => {
-            data = {
+            let data = {
                 labels: [],
                 datasets: [
                     {
@@ -75,23 +57,19 @@ class ChannelsGraphController {
         }
 
         let updateChannelsGraph = (graphData) => {
-            let myLineChart = new Chart(ctm).Line(graphData);
-            // counter + 1;
-            // console.log(counter);
+            if(!myLineChart) {
+                myLineChart = new Chart(ctm).Line(graphData);
+            } else {
+                myLineChart.destroy();
+                myLineChart = new Chart(ctm).Line(graphData);
+            }
         }
 
-
-        if(counter !== 0) {
-            console.log('*** BEFORE ***');
-            console.log(counter);
-            this.filterGraphByTime('minutes');
-            counter += 1;
-            console.log('*** AFTER ***');
-            console.log(counter);
+        if(!timeGraphToggler) {
+            console.log('NO TOGGLER');
+            getGraphData({ statType: 'channel', time: 'minutes' });
         }
-        this.filterGraphByTime('minutes');
-
-        $interval(this.filterGraphByTime(timeGraphToggler), 60000);
+        $interval(getGraphData(timeGraphToggler), 3000);
     }
     //
 }
