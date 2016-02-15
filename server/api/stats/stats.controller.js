@@ -14,19 +14,12 @@ import https from 'https';
 import fs from 'fs';
 import dateformat from 'dateformat';
 import StatsSchema from './stats.model';
-import AverageSchema from './averagestats.model';
-import averagestatscontroller from './averagestats.controller';
 
-// export function averagestats(req, res) {
-//     AverageSchema.find().sort({"date": -1}).limit(1).then(function(averages) {
-//         res.json(averages);
-//     })
-// }
 
 export function saveStats(statTick) {
     if(statTick.channels === undefined || statTick.channels === undefined
                     || statTick === {} || statTick.status === 503 || statTick.status === 404) {
-        getKraken();
+        getInitialKrakenStats();
     } else {
         var statTickEntry = new StatsSchema(statTick);
         return statTickEntry.save(function(err) {
@@ -62,19 +55,12 @@ export function lastentry(req, res) {
     });
 }
 
-// export function averageviewerstats(req, res) {
-//     return AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
-//         data.reverse();
-//         res.json(data);
-//     });
-// }
-
 var options = {
     host: 'api.twitch.tv',
     path: '/kraken/streams/summary'
 };
 
-function getKraken() {
+function getInitialKrakenStats() {
     https.get(options, function(res) {
         let bodyChunks = [];
         res.on('data', function(chunk) {
@@ -88,11 +74,10 @@ function getKraken() {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
-            //console.log(statTick);
             saveStats(statTick);
         })
     }).on('error', function(e) {
         console.log('ERROR: ' + e);
     });
 }
-setInterval(getKraken, 60000);
+setInterval(getInitialKrakenStats, 60000);
