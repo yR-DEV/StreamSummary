@@ -16,17 +16,16 @@ import dateformat from 'dateformat';
 import StatsSchema from './stats.model';
 import AverageSchema from './averagestats.model';
 import averagestatscontroller from './averagestats.controller';
-//change this to 0 upon launch
-//let hourCounter = 22;
 
-export function averagestats(req, res) {
-    AverageSchema.find().sort({"date": -1}).limit(1).then(function(averages) {
-        res.json(averages);
-    })
-}
+// export function averagestats(req, res) {
+//     AverageSchema.find().sort({"date": -1}).limit(1).then(function(averages) {
+//         res.json(averages);
+//     })
+// }
 
 export function saveStats(statTick) {
-    if(statTick.channels === undefined || statTick.channels === undefined || statTick === {}) {
+    if(statTick.channels === undefined || statTick.channels === undefined
+                    || statTick === {} || statTick.status === 503 || statTick.status === 404) {
         getKraken();
     } else {
         var statTickEntry = new StatsSchema(statTick);
@@ -38,19 +37,6 @@ export function saveStats(statTick) {
             return data;
         });
     }
-    // if(statTick.channels === undefined || statTick.viewers === undefined || statTick === {}) {
-    //     getKraken();
-    // } else {
-    //     var statTickEntry = new StatsSchema(statTick);
-    //     return statTickEntry.save(function(err) {
-    //     }).then(function(ret) {
-    //         hourCounter += 1;
-    //         if(hourCounter % 23 === 0) {
-    //             averagestatsupdate.getAndUpdateAverageStats();
-    //         }
-    //         return ret;
-    //     });
-    // }
 }
 
 //db call to pull the x most recent entries to graph out.
@@ -76,12 +62,12 @@ export function lastentry(req, res) {
     });
 }
 
-export function averageviewerstats(req, res) {
-    return AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
-        data.reverse();
-        res.json(data);
-    });
-}
+// export function averageviewerstats(req, res) {
+//     return AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
+//         data.reverse();
+//         res.json(data);
+//     });
+// }
 
 var options = {
     host: 'api.twitch.tv',

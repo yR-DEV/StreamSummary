@@ -23,6 +23,7 @@ export function channelStats(req, res) {
         });
     }
     //returning 8 records to the front end
+    //logic to sort 8 hours in fn setHourData below
     if(req.body.time === 'hour') {
         StatsSchema.find().sort({"_id": -1}).limit(480).then(function(hourdata) {
             if(hourdata.length < 480) {
@@ -35,7 +36,16 @@ export function channelStats(req, res) {
     }
     //8 days going back to the front end
     if(req.body.time === 'day') {
-        res.json(200);
+        StatsSchema.find().sort({"_id": -1}).limit(11520).then(function(daydata) {
+            console.log('in db');
+            //if(daydata.length < 11520) {
+                //need to send string to front end
+            //} else {
+                req.body.hourData = daydata;
+                sortHourData(req, res);
+            //}
+        })
+        //res.json(200);
     }
 }
 
@@ -61,68 +71,26 @@ export function sortHourData(req, res) {
     res.json(hours);
 }
 
+//11520 minutes in a day
+//1440 minutes in an hour
+export function setDayData(req, res) {
+    let days = [];
+    for(var i = 0; i <= 7; i++) {
+        let dayStartingTime;
+        let perDayAverage;
 
-// let hourStartingTime;
-// let perHourAverage;
-//
-//     for(var y = 0; y <= hourItemsLength; y++) {
-//         if(y === 0) {
-    //    perHourAverage = req.body.hourData[y].channels;
-    //    hourStartingTime = req.body.hourData[y].date
-//         } else {
-//             perHourAverage = Math.floor((perHourAverage += req.body.hourData[y].channels) / 2);
-//         }
-//     }
-//     hours.push({ date: hourStartingTime, channels: perHourAverage });
-// };
-// console.log(hours);
-
-// { stat: 'channel', time: 'minute' }
-// { stat: 'channel', time: 'hour' }
-// { stat: 'channel', time: 'day' }
-
-//
-// module.exports = {
-//     getAndUpdateAverageStats: function() {
-//         let day = new AverageSchema;
-//         StatsSchema.find().sort({"date": -1}).limit(24).then(function(data) {
-//             data.forEach(function(hour, i) {
-//                 if(i <= 11) {
-//                     day.firsthalf.push({ hour: i,
-//                                          channels: hour.channels,
-//                                          viewers: hour.viewers});
-//                 } else if (i >= 12 && i <= 23) {
-//                     day.secondhalf.push({ hour: i,
-//                                             channels: hour.channels,
-//                                             viewers: hour.viewers});
-//                 }
-//             });
-//
-//             let newDay = new AverageSchema;
-//             AverageSchema.find().sort({"date": -1}).limit(1).then(function(data) {
-//                 data[0].firsthalf.forEach(function(hour, i) {
-//                     newDay.firsthalf.push({
-//                         hour: i,
-//                         channels: ((day.firsthalf[i].channels + hour.channels) / 2),
-//                         viewers: ((day.firsthalf[i].viewers + hour.viewers) /  2)
-//                     });
-//                 })
-//                 data[0].secondhalf.forEach(function(hour, i) {
-//                     newDay.secondhalf.push({
-//                         hour: i + 12,
-//                         channels: ((day.secondhalf[i].channels + hour.channels) / 2),
-//                         viewers: ((day.secondhalf[i].viewers + hour.viewers) / 2)
-//                     })
-//                 })
-//                 AverageSchema.remove({}).then(function(err) {
-//                     newDay.save(function(err) {
-//                     }).then(function(ret) {
-//                         //console.log('RET');
-//                         //console.log(ret);
-//                         return ret;
-//                     })
-//                 })
-//             })
-//         });
-//     }
-// }
+        for(var y = 0; y <= 59; y++) {
+            if(!perDayAverage) {
+                perDayAverage = req.body.dayData[0].channels;
+                dayStartingTime = req.body.dayData[0].date;
+                req.body.dayData.splice(0, 1);
+            } else {
+                perDayAverage = Math.floor((perDayAverage += req.body.dayData[0].channels) / 2);
+                req.body.dayData.splice(0, 1);
+            }
+        }
+        days.push({ date: dayStartingTime, channels: perDayAverage });
+    }
+    days.reverse();
+    res.json(days);
+}
