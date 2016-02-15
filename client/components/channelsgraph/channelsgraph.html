@@ -1,5 +1,15 @@
 <div ng-controller="ChannelsGraphController as channelsgraph" id="channels-graph">
     <div class="jumbotron channels-graph-jumbotron">
+        <div id="channel-filter-label">
+            <h3>Filter By: </h3>
+        </div>
+        <div id="channel-filter-buttons">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" ng-click="channelsgraph.filterGraphByTime('minute')">Minute</button>
+                <button type="button" class="btn btn-default" ng-click="channelsgraph.filterGraphByTime('hour')">Hour</button>
+                <button type="button" class="btn btn-default" ng-click="channelsgraph.filterGraphByTime('day')">Day</button>
+            </div>
+        </div>
         <div class="graph-header">
             <h2>Past Live Channel Data</h2>
         </div>

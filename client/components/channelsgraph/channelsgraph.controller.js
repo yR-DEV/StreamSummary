@@ -9,6 +9,10 @@ class ChannelsGraphController {
         let initialRender = 0;
         let promise;
 
+        this.filterGraphByTime = (length) => {
+            console.log(length);
+        }
+
 
         let channelsGraphData = () => {
             $http.get('/api/stats/graphstats').then(response => {
