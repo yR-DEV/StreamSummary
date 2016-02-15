@@ -10,7 +10,7 @@ class ChannelsGraphController {
 
         this.filterGraphByTime = (typeFilter) => {
             console.log(typeFilter);
-            let typeAndTime = { stat: 'channel', time: typeFilter };
+            let typeAndTime = { statType: 'channel', time: typeFilter };
             console.log(typeAndTime);
             channelsGraphData(typeAndTime);
         }
@@ -19,6 +19,7 @@ class ChannelsGraphController {
         let channelsGraphData = (typeAndTime) => {
             console.log(typeAndTime);
             $http.post('/api/stats/averagestats', typeAndTime).then(response => {
+                console.log(response);
                 let data = {
                     labels: [],
                     datasets: [
@@ -34,31 +35,31 @@ class ChannelsGraphController {
                         },
                     ]
                 };
-                setData(response, data)
+                //setData(response, data)
             });
         };
-        let setData = (res, data) => {
-            res.data.forEach(function(entry) {
-                data.labels.push(entry.date);
-                if(entry.channels == undefined || entry.channels == 0) {
-                    data.datasets[0].data.push(0)
-                } else {
-                    data.datasets[0].data.push(entry.channels);
-                }
-            });
-
-            updateChannelsGraph(data);
-        };
-        let updateChannelsGraph = (data) => {
-            let myLineChart = new Chart(ctx).Line(data);
-        }
-        if(initialRender === 0) {
-            initialRender += 1;
-            $timeout(channelsGraphData, 1000);
-
-        }
-
-        $interval(channelsGraphData, 60000);
+        // let setData = (res, data) => {
+        //     res.data.forEach(function(entry) {
+        //         data.labels.push(entry.date);
+        //         if(entry.channels == undefined || entry.channels == 0) {
+        //             data.datasets[0].data.push(0)
+        //         } else {
+        //             data.datasets[0].data.push(entry.channels);
+        //         }
+        //     });
+        //
+        //     updateChannelsGraph(data);
+        // };
+        // let updateChannelsGraph = (data) => {
+        //     let myLineChart = new Chart(ctx).Line(data);
+        // }
+        // if(initialRender === 0) {
+        //     initialRender += 1;
+        //     $timeout(channelsGraphData, 1000);
+        //
+        // }
+        //
+        // $interval(channelsGraphData, 60000);
     }
 }
 

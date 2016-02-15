@@ -9,8 +9,26 @@ import StatsSchema from './stats.model';
 import controller from './stats.controller';
 
 export function getaverages(req, res) {
-    console.log(req.body);
+    if(req.body.statType === 'channel') {
+        channelStats(req, res);
+    }
 }
+
+export function channelStats(req, res) {
+    if(req.body.time === 'minute') {
+        res.json(200);
+    }
+    if(req.body.time === 'hour') {
+        res.json(200);
+    }
+    if(req.body.time === 'day') {
+        res.json(200);
+    }
+}
+
+// { stat: 'channel', time: 'minute' }
+// { stat: 'channel', time: 'hour' }
+// { stat: 'channel', time: 'day' }
 
 //
 // module.exports = {
