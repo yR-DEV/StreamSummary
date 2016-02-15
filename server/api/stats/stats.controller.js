@@ -15,9 +15,9 @@ import fs from 'fs';
 import dateformat from 'dateformat';
 import StatsSchema from './stats.model';
 import AverageSchema from './averagestats.model';
-import averagestatsupdate from './averagestats.update.js';
+import averagestatscontroller from './averagestats.controller';
 //change this to 0 upon launch
-let hourCounter = 22;
+//let hourCounter = 22;
 
 export function averagestats(req, res) {
     AverageSchema.find().sort({"date": -1}).limit(1).then(function(averages) {
@@ -26,19 +26,31 @@ export function averagestats(req, res) {
 }
 
 export function saveStats(statTick) {
-    if(statTick.channels === undefined || statTick.viewers === undefined || statTick === {}) {
+    if(statTick.channels === undefined || statTick.channels === undefined || statTick === {}) {
         getKraken();
     } else {
         var statTickEntry = new StatsSchema(statTick);
         return statTickEntry.save(function(err) {
-        }).then(function(ret) {
-            hourCounter += 1;
-            if(hourCounter % 23 === 0) {
-                averagestatsupdate.getAndUpdateAverageStats();
+            if(err) {
+                console.log(err);
             }
-            return ret;
+        }).then(function(data) {
+            return data;
         });
     }
+    // if(statTick.channels === undefined || statTick.viewers === undefined || statTick === {}) {
+    //     getKraken();
+    // } else {
+    //     var statTickEntry = new StatsSchema(statTick);
+    //     return statTickEntry.save(function(err) {
+    //     }).then(function(ret) {
+    //         hourCounter += 1;
+    //         if(hourCounter % 23 === 0) {
+    //             averagestatsupdate.getAndUpdateAverageStats();
+    //         }
+    //         return ret;
+    //     });
+    // }
 }
 
 //db call to pull the x most recent entries to graph out.

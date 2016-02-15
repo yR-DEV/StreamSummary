@@ -7,15 +7,18 @@ class ChannelsGraphController {
         this.$timeout = $timeout;
         let ctx = document.getElementById("channelsGraph").getContext("2d");
         let initialRender = 0;
-        let promise;
 
-        this.filterGraphByTime = (length) => {
-            console.log(length);
+        this.filterGraphByTime = (typeFilter) => {
+            console.log(typeFilter);
+            let typeAndTime = { stat: 'channel', time: typeFilter };
+            console.log(typeAndTime);
+            channelsGraphData(typeAndTime);
         }
 
 
-        let channelsGraphData = () => {
-            $http.get('/api/stats/graphstats').then(response => {
+        let channelsGraphData = (typeAndTime) => {
+            console.log(typeAndTime);
+            $http.post('/api/stats/averagestats', typeAndTime).then(response => {
                 let data = {
                     labels: [],
                     datasets: [
