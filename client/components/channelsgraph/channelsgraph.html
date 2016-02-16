@@ -1,7 +1,10 @@
 <div ng-controller="ChannelsGraphController as channelsgraph" id="channels-graph" >
     <div class="jumbotron channels-graph-jumbotron">
         <div id="channel-filter-label">
-            <h3>Filter By: </h3>
+            <h1>Filter Channel Data By: </h1>
+        </div>
+        <div class="graph-header">
+            <h2>The {{channelsgraph.time}}</h2>
         </div>
         <div id="channel-filter-buttons">
             <div class="btn-group" role="group" aria-label="...">
@@ -10,15 +13,12 @@
                 <button type="button" class="btn btn-default" ng-click="channelsgraph.filterGraphByTime('day')">Day</button>
             </div>
         </div>
-        <div class="graph-header">
-            <h2>Channel Data By: {{channelsgraph.time}}</h2>
-        </div>
-        <div id="channelsgraph.recordsError" ng-show="channelsgraph.notEnoughRecords">
+        <div class="data-error" ng-show="channelsgraph.notEnoughRecords">
             <h2>ERROR: Not enough entries</h2>
             <h2>to render graph.</h2>
         </div>
-        <div id="channels-line-graph">
-            <canvas id="channelsGraphMinutes" width="400" height="400" ng-show="channelsgraph.timeGraphToggler = 'minutes'"></canvas>
+        <div id="channels-line-graph" ng-show="channelsgraph.showGraph">
+            <canvas id="channelsGraph" width="400" height="400" ng-show="channelsgraph.timeGraphToggler = 'minutes'"></canvas>
         </div>
     </div>
 </div>

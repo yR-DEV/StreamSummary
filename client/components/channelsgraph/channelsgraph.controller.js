@@ -5,30 +5,36 @@ class ChannelsGraphController {
         this.$http = $http;
         this.$interval = $interval;
         this.$timeout = $timeout;
-        let ctm = document.getElementById("channelsGraphMinutes").getContext("2d");
-        let timeGraphToggler;
+        let ctx = document.getElementById("channelsGraph").getContext("2d");
+        let timeGraphQuery = {statType: 'channels', time: 'minute'}
+        let typeFilter = 'minute';
+        let initialCounter;
         let myLineChart;
-        let typeFilter;
 
         this.filterGraphByTime = (typeFilter) => {
-            let typeAndTime = { statType: 'channel', time: typeFilter };
-            timeGraphToggler = typeFilter;
-            getGraphData(typeAndTime);
+            this.showGraph = true;
             this.notEnoughRecords = false;
+            this.time = typeFilter;
+            let typeAndTime = { statType: 'channels', time: typeFilter };
+            timeGraphQuery = typeFilter;
+            getGraphData(typeAndTime);
         }
 
         let dataTimer = () => {
-            getGraphData({ statType: 'channel', time: typeFilter })
+            getGraphData(timeGraphQuery);
         }
 
         let getGraphData = (channelQuery) => {
-            console.log(timeGraphToggler);
+            console.log(timeGraphQuery);
             $http.post('/api/stats/sortchannelstats', channelQuery).then(response => {
                 if(response.data !== false) {
                     console.log(response);
+                    this.showGraph = true;
                     setData(response);
                 } else {
+                    myLineChart.destroy();
                     this.notEnoughRecords = true;
+                    this.showGraph = false;
                 }
             });
         };
@@ -57,44 +63,19 @@ class ChannelsGraphController {
                     data.datasets[0].data.push(sortedEntry.channels);
                 }
             })
-            console.log(data);
             updateChannelsGraph(data)
         }
 
         let updateChannelsGraph = (graphData) => {
             if(!myLineChart) {
-                myLineChart = new Chart(ctm).Line(graphData);
+                myLineChart = new Chart(ctx).Line(graphData);
             } else {
                 myLineChart.destroy();
-                myLineChart = new Chart(ctm).Line(graphData);
+                myLineChart = new Chart(ctx).Line(graphData);
             }
         }
-
-        // function firstRender() {
-        //     let executed = false;
-        //     return function() {
-        //         if(!executed) {
-        //             console.log('FIRST RENDER');
-        //             getGraphData({ statType: 'channel', time: 'minute' });
-        //             executed = true;
-        //         }
-        //     }
-        // }
-        // if(counter === 0 || counter === 1) {
-        //     let firstQuery = { statType: 'channel', time: 'minute' }
-        //     getGraphData(firstQuery);
-        // } else {
-        //     console.log('out of the loop');
-        // }
-        // let firstQuery = { statType: 'channel', time: 'minute' }
-        if(!typeFilter) {
-            typeFilter = 'minute';
-        }
-
-
-        // $interval(setTheData, 5000);
+        $interval(dataTimer, 60000);
     }
-    //
 }
 
 

@@ -33,11 +33,8 @@ let getInitialKrakenStats = () => {
         console.log('ERROR: ' + e);
     });
 }
-setInterval(getInitialKrakenStats, 60000);
-
 
 let saveStats = (statTick) => {
-    console.log('stikc');
     if(statTick.channels === undefined || statTick.channels === undefined
                     || statTick === {} || statTick.status === 503 || statTick.status === 404) {
         getInitialKrakenStats();
@@ -52,3 +49,5 @@ let saveStats = (statTick) => {
         });
     }
 };
+
+setInterval(getInitialKrakenStats, 4000);

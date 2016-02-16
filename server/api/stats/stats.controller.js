@@ -32,8 +32,7 @@ export function statstable(req, res) {
 }
 
 export function lastentry(req, res) {
-    return StatsSchema.find().sort({"date": -1}).limit(1).then(function(data) {
-        data.reverse();
+    return StatsSchema.find().sort({"_id": -1}).limit(1).then(function(data) {
         res.json(data);
     });
 }

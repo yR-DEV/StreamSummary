@@ -1,17 +1,12 @@
 <div id="main" ng-controller="StatsController as stats">
       <div id="stats">
             <div class="jumbotron">
-                  <div class="row">
-                        <div class="col-md-4">
-                              <h2>Last Refreshed:</h2>
-                        </div>
-                        <div class="col-md-6">
-                              <p id="stat-date">
-                                    {{stats.statDate | date:'MM/dd/yyyy @ h:mma'}}
-                              </p>
-                        </div>
-                  </div>
-                  <div class="row">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 id="stats-header">Current Statistics:</h1>
+                    </div>
+                </div>
+                 <div class="row">
                         <div class="col-md-4">
                               <h2>Live Channels:</h2>
                         </div>
@@ -29,6 +24,16 @@
                               <div id="stat-viewer-count">
                                   {{stats.stats.viewers}}
                               </div>
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-md-4">
+                              <h2>Graphs Last Refreshed:</h2>
+                        </div>
+                        <div class="col-md-6">
+                              <p id="stat-date">
+                                    {{stats.statDate | date:'MM/dd/yyyy @ h:mma'}}
+                              </p>
                         </div>
                   </div>
             </div>

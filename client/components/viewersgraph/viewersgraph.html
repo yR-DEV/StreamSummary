@@ -1,9 +1,23 @@
 <div ng-controller=" ViewersGraphController as viewersgraph" id="viewers-graph">
     <div class="jumbotron viewers-graph-jumbotron">
-        <div class="graph-header">
-            <h2>Past Active Viewer Data</h2>
+        <div id="viewers-filter-label">
+            <h1>Filter Viewer Data By: </h1>
         </div>
-        <div id="viewers-line-graph">
+        <div class="graph-header">
+            <h2>The {{viewersgraph.time}}</h2>
+        </div>
+        <div id="viewers-filter-buttons">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" ng-click="viewersgraph.filterGraphByTime('minute')">Minute</button>
+                <button type="button" class="btn btn-default" ng-click="viewersgraph.filterGraphByTime('hour')">Hour</button>
+                <button type="button" class="btn btn-default" ng-click="viewersgraph.filterGraphByTime('day')">Day</button>
+            </div>
+        </div>
+        <div class="data-error" ng-show="viewersgraph.notEnoughRecords">
+            <h2>ERROR: Not enough entries</h2>
+            <h2>to render graph.</h2>
+        </div>
+        <div id="viewers-line-graph" ng-show="viewersgraph.showGraph">
             <canvas id="viewersGraph" width="400" height="400"></canvas>
         </div>
     </div>

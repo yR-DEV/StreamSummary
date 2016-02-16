@@ -5,8 +5,21 @@
         margin: 40px auto;
         border-radius: 15px;
 
+        #viewers-filter-label {
+            text-align: center;
+        }
+
+        #viewers-filter-buttons {
+            text-align: center;
+        }
+
         .graph-header {
             text-align: center;
+        }
+
+        .data-error {
+            text-align: center;
+            color: red;
         }
 
         #viewers-line-graph {

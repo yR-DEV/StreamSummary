@@ -14,10 +14,8 @@ class StatsController {
             //also includes the post that will send each api call data to the back end
             let query = () => {
                   $http.get('https://api.twitch.tv/kraken/streams/summary').then(response => {
-                        //making an object so I dont have the kraken link in every single object stored in the db
                         this.stats.channels = response.data.channels;
                         this.stats.viewers = response.data.viewers;
-                        this.stats.date = this.statDate;
                   });
             }
             //needed a function to initially use an http.get
@@ -26,23 +24,19 @@ class StatsController {
                   query();
                   initialGet += 1;
             }
-            $interval(query, 61000);
+            $interval(query, 35000);
 
             let getLastUpdateDate = () => {
                 $http.get('/api/stats/lastentry').then(response => {
                     setTickDate(response);
                 });
             }
-
             let setTickDate = (tick) => {
                 this.statDate = tick.data[0].date;
             }
 
-            if(initialDateGet === 0) {
-                initialDateGet += 1;
-                getLastUpdateDate();
-            }
-            $interval(getLastUpdateDate, 50000)
+            getLastUpdateDate();
+            $interval(getLastUpdateDate, 30000);
       }
 }
 

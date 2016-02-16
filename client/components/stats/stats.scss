@@ -17,10 +17,11 @@
           border-radius: 15px;
           margin-bottom: 0px !important;
 
-
-        //   .stats-row {
-        //       border-bottom: 1px solid black;
-        //   }
+          #stats-header {
+              text-align: center;
+              font-size: 40px;
+              margin-top: 0 !important;
+          }
 
           #stat-channel-count {
               text-align: right;
