@@ -12,7 +12,6 @@ let options = {
     host: 'api.twitch.tv',
     path: '/kraken/streams/summary'
 };
-
 let getInitialKrakenStats = () => {
     https.get(options, function(res) {
         let bodyChunks = [];
@@ -33,7 +32,6 @@ let getInitialKrakenStats = () => {
         console.log('ERROR: ' + e);
     });
 }
-
 let saveStats = (statTick) => {
     if(statTick.channels === undefined || statTick.channels === undefined
                     || statTick === {} || statTick.status === 503 || statTick.status === 404) {
@@ -45,9 +43,9 @@ let saveStats = (statTick) => {
                 console.log(err);
             }
         }).then(function(data) {
+            console.log(data);
             return data;
         });
     }
 };
-
-setInterval(getInitialKrakenStats, 4000);
+setInterval(getInitialKrakenStats, 60000);

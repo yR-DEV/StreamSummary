@@ -26,7 +26,7 @@ class StatsTableController {
             initialRender += 1;
             updateStatsTable();
         }
-        $interval(updateStatsTable, 61000);
+        $interval(updateStatsTable, 60000);
     }
 }
 

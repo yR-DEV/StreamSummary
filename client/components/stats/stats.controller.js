@@ -1,7 +1,6 @@
 'use-strict';
 
 class StatsController {
-
       //controller constructor
       constructor($http, $interval) {
             this.$http = $http;
@@ -25,7 +24,6 @@ class StatsController {
                   initialGet += 1;
             }
             $interval(query, 35000);
-
             let getLastUpdateDate = () => {
                 $http.get('/api/stats/lastentry').then(response => {
                     setTickDate(response);
@@ -34,7 +32,6 @@ class StatsController {
             let setTickDate = (tick) => {
                 this.statDate = tick.data[0].date;
             }
-
             getLastUpdateDate();
             $interval(getLastUpdateDate, 30000);
       }
