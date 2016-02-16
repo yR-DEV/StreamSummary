@@ -8,7 +8,7 @@ class ChannelsGraphController {
         let ctm = document.getElementById("channelsGraphMinutes").getContext("2d");
         let timeGraphToggler;
         let myLineChart;
-        let counter = 0;
+        let typeFilter;
 
         this.filterGraphByTime = (typeFilter) => {
             let typeAndTime = { statType: 'channel', time: typeFilter };
@@ -17,8 +17,13 @@ class ChannelsGraphController {
             this.notEnoughRecords = false;
         }
 
-        let getGraphData = (query) => {
-            $http.post('/api/stats/sortchannelstats', query).then(response => {
+        let dataTimer = () => {
+            getGraphData({ statType: 'channel', time: typeFilter })
+        }
+
+        let getGraphData = (channelQuery) => {
+            console.log(timeGraphToggler);
+            $http.post('/api/stats/sortchannelstats', channelQuery).then(response => {
                 if(response.data !== false) {
                     console.log(response);
                     setData(response);
@@ -65,11 +70,29 @@ class ChannelsGraphController {
             }
         }
 
-        if(!timeGraphToggler) {
-            console.log('NO TOGGLER');
-            getGraphData({ statType: 'channel', time: 'minutes' });
+        // function firstRender() {
+        //     let executed = false;
+        //     return function() {
+        //         if(!executed) {
+        //             console.log('FIRST RENDER');
+        //             getGraphData({ statType: 'channel', time: 'minute' });
+        //             executed = true;
+        //         }
+        //     }
+        // }
+        // if(counter === 0 || counter === 1) {
+        //     let firstQuery = { statType: 'channel', time: 'minute' }
+        //     getGraphData(firstQuery);
+        // } else {
+        //     console.log('out of the loop');
+        // }
+        // let firstQuery = { statType: 'channel', time: 'minute' }
+        if(!typeFilter) {
+            typeFilter = 'minute';
         }
-        $interval(getGraphData(timeGraphToggler), 3000);
+
+
+        // $interval(setTheData, 5000);
     }
     //
 }
