@@ -31,7 +31,9 @@ class ViewersGraphController {
                     this.showGraph = true;
                     setData(response);
                 } else {
-                    // myLineChart.destroy();
+                    if(myLineChart) {
+                        myLineChart.destroy();
+                    }
                     this.notEnoughRecords = true;
                     this.showGraph = false;
                 }

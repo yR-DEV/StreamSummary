@@ -24,7 +24,7 @@ export function queryStats(req, res) {
     // console.log(req.body);
     if(req.body.time === 'minute') {
         return StatsSchema.find().sort({"_id": -1}).limit(8).then(function(minutedata) {
-            minutedata.reverse();
+            // minutedata.reverse();
             res.json(minutedata);
         });
     }
