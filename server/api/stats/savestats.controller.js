@@ -26,6 +26,8 @@ let getInitialKrakenStats = () => {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
+            console.log('parsed json http response');
+            console.log(statTick);
             saveStats(statTick);
         })
     }).on('error', function(e) {
@@ -43,6 +45,7 @@ let saveStats = (statTick) => {
                 console.log(err);
             }
         }).then(function(data) {
+            console.log('tick successfully saved in db');
             console.log(data);
             return data;
         });

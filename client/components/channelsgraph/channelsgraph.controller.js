@@ -6,9 +6,9 @@ class ChannelsGraphController {
         this.$interval = $interval;
         this.$timeout = $timeout;
         let ctx = document.getElementById("channelsGraph").getContext("2d");
-        let timeGraphQuery = {statType: 'channels', time: 'minute'}
-        let typeFilter = 'minute';
-        let initialCounter;
+        // let timeGraphQuery = {statType: 'channels', time: 'minute'}
+        // let typeFilter = 'minute';
+        let timeGraphQuery;
         let myLineChart;
 
         this.filterGraphByTime = (typeFilter) => {

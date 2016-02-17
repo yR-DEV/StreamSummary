@@ -8,7 +8,8 @@ import StatsSchema from './stats.model';
 import controller from './stats.controller';
 
 export function sortstats(req, res) {
-    console.log(req.body);
+    // console.log('sort stats req.body');
+    // console.log(req.body);
     if(req.body.statType === 'channels') {
         return queryStats(req, res);
     }
@@ -19,7 +20,8 @@ export function sortstats(req, res) {
 
 //returning 8 records to the front end
 export function queryStats(req, res) {
-    console.log(req.body);
+    // console.log('query stats req.body');
+    // console.log(req.body);
     if(req.body.time === 'minute') {
         return StatsSchema.find().sort({"_id": -1}).limit(8).then(function(minutedata) {
             minutedata.reverse();
@@ -47,14 +49,15 @@ export function queryStats(req, res) {
         });
     }
 }
-
-export function viewerStats(req, res) {
-    res.json(200);
-}
+//
+// export function viewerStats(req, res) {
+//     res.json(200);
+// }
 
 //60 minutes in a day Kappa
 export function sortHourData(req, res) {
-    console.log(req.body.statType);
+    // console.log('set hour data statType');
+    // console.log(req.body.statType);
     let hours = [];
     for(var i = 0; i <= 7; i++) {
         let hourStartingTime;
@@ -87,9 +90,10 @@ export function sortHourData(req, res) {
             hours.push({ date: hourStartingTime, viewers: perHourAverage })
         }
     }
-    console.log(hours);
     hours.reverse();
-    res.json(hours);
+    // console.log('final hours arr');
+    // console.log(hours);
+    res.send(200).json(hours);
 }
 
 //11520 minutes in a day
@@ -121,8 +125,12 @@ export function setDayData(req, res) {
                 }
             }
         }
-        days.push({ date: dayStartingTime, channels: perDayAverage });
+        if(req.body.statType === 'channels') {
+            days.push({ date: dayStartingTime, channels: perDayAverage });
+        } else if (req.body.statType === 'viewers') {
+            days.push({ date: dayStartingTime, viewers: perDayAverage })
+        }
     }
     days.reverse();
-    res.json(days);
+    res.send(200).json(days);
 }

@@ -27,12 +27,16 @@ export function graphstats(req, res) {
 export function statstable(req, res) {
     return StatsSchema.find().sort({"date": -1}).limit(20).then(function(data) {
         data.reverse();
+        // console.log('stats table');
+        // console.log(data);
         res.json(data);
     });
 }
 
 export function lastentry(req, res) {
     return StatsSchema.find().sort({"_id": -1}).limit(1).then(function(data) {
+        // console.log('last entry');
+        // console.log(data);
         res.json(data);
     });
 }
