@@ -25,7 +25,7 @@ class ViewersGraphController {
         }
 
         let getGraphData = (viewersQuery) => {
-            $http.post('/api/stats/sortviewerstats', viewersQuery).then(response => {
+            $http.post('/api/summarystats/sortviewerstats', viewersQuery).then(response => {
                 console.log(response);
                 if(response.data !== false) {
                     this.showGraph = true;

@@ -26,7 +26,8 @@ class ChannelsGraphController {
 
         let getGraphData = (channelQuery) => {
             console.log(timeGraphQuery);
-            $http.post('/api/stats/sortchannelstats', channelQuery).then(response => {
+            $http.post('/api/summarystats/sortchannelstats', channelQuery).then(response => {
+                console.log(response);
                 if(response.data !== false) {
                     console.log(response);
                     this.showGraph = true;

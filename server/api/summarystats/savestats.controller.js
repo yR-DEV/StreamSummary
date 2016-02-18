@@ -35,7 +35,7 @@ let getInitialKrakenStats = () => {
     });
 }
 let saveStats = (statTick) => {
-    if(statTick.channels === undefined || statTick.channels === undefined
+    if(statTick.channels === undefined || statTick.viewers === undefined
                     || statTick === {} || statTick.status === 503 || statTick.status === 404) {
         getInitialKrakenStats();
     } else {

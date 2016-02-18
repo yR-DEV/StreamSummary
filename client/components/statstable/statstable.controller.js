@@ -9,7 +9,7 @@ class StatsTableController {
 
         let updateStatsTable = () => {
             stats = [];
-            $http.get('/api/stats/statstable').then(response => {
+            $http.get('/api/summarystats/statstable').then(response => {
                 response.data.forEach(function(tick) {
                     stats.push({date: tick.date,
                         channels: tick.channels,
