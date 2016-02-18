@@ -6,12 +6,10 @@ STREAMS SUMMARY
 ## Explanation/Justification?
 
 ### What it is
-- A simple application that will monitor and record the stream summary numbers from twitch.tv, a popular live streaming platform for gamers.
-    * url: `https://api.twitch.tv/kraken/streams/summary`
-- The json object returned from the  api query includes:
-    * channels: Number (the number of channels on twitch that are currently streaming live)
-    * viewers: Number (number of current active viewers, i.e. people watching live streams)
-- I will be displaying the recorded data with Chart.js, will get to this soon
+- A simple application that will monitor statistics and record the stream summary numbers from twitch.tv, a popular and quickly growing live streaming platform for gamers.
+    * overall statistics url: `https://api.twitch.tv/kraken/streams/summary`
+- Summary includes total number of streams that are live and the number of active viewers
+- ~~I will be displaying the recorded data with Chart.js, will get to this soon~~
 
 
 ### Goals?
@@ -42,7 +40,7 @@ __________
 1. `npm install` to install server dependencies.
 2. `bower install` to install front-end dependencies.
 3. `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
-4. `grunt serve` will start the development server. It should automatically open the client in your browser when ready, and update upon changes to files. If updates fail to hold, restart it.
+4. `grunt serve` will start the development server.
 
 
 ## buildin' and developin'
@@ -77,9 +75,10 @@ Running `npm test` will run the unit tests with karma.
 - ~~Create/brainstorm a way to average out the viewers and channels for each hour of the day (?)~~
     * ~~Look at the average X viewers/channels for like each hour?~~
 - ~~DOING AVERAGES FOR EACH HOUR, NEED TO ENTER 1 ENTRY INTO AverageSchema IN ORDER FOR THE LOGIC TO WORK. NEED TO ASK SOMEONE ABIOUT THIS LATER~~    
-- Refactor refactor refactor!!!
-- Consider using the update method for chart.js instead of just rerendeing..
-    * I just like the rendering animation even though its harder to see the change in the graph.
+- ~~Refactor refactor refactor the summary stats!!!!~~
+- ~~Consider using the update method for chart.js instead of just rerendeing..~~
+    * ~~I just like the rendering animation even though its harder to see the change in the graph.~~
+- Start to work on getting statistics about streamers now, it looks like I will have to actually register my application with twitch in order to make more api calls.     
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~
