@@ -5,30 +5,39 @@ class ViewersGraphController {
         this.$http = $http;
         this.$interval = $interval;
         this.$timeout = $timeout;
+
         let ctx = document.getElementById('viewersGraph').getContext("2d");
-        let typeFilter = 'minute';
+        let typeAndTime = { statType: 'viewers', time: '' };
+        let typeFilter;
         let myLineChart;
 
         this.filterGraphByTime = (typeFilter) => {
+            //setting scope data
             this.showGraph = true;
             this.notEnoughRecords = false;
-            this.time = typeFilter;
-            let typeAndTime = { statType: 'viewers', time: typeFilter };
-            let timeGraphQuery = typeFilter;
+            if(typeFilter !== 'minute') {
+                this.time = 'averaged ' + typeFilter + 's';
+            } else {
+                this.time = 'minutes';
+            }
+
+            //setting query data
+            typeAndTime.time = typeFilter;
             getGraphData(typeAndTime);
         }
 
         let dataTimer = () => {
-            getGraphData(timeGraphQuery);
+            console.log('viewer tick');
+            getGraphData(typeAndTime);
         }
 
         let getGraphData = (viewersQuery) => {
-            $http.post('/api/summarystats/getviewerstats', viewersQuery).then(response => {
-                console.log(response);
+            $http.post('/api/summarystats/viewerstats', viewersQuery).then(response => {
                 if(response.data !== false) {
                     this.showGraph = true;
                     setData(response);
                 } else {
+                    console.log(response);
                     if(myLineChart) {
                         myLineChart.destroy();
                     }
@@ -74,9 +83,12 @@ class ViewersGraphController {
             }
         }
 
-        this.filterGraphByTime(typeFilter)
-
+        if(!typeFilter) {
+            typeFilter = 'minute';
+            this.filterGraphByTime(typeFilter);
+        }
         $interval(dataTimer, 60000);
+
     }
 }
 

@@ -6,12 +6,10 @@ class StatsController {
             this.$http = $http;
             this.$interval = $interval;
             this.stats = {};
-            let initialGet = 0;
-            let initialDateGet = 0;
             this.statDate;
 
             let getLastUpdateDate = () => {
-                $http.get('/api/summarystats/getlastentry').then(response => {
+                $http.get('/api/summarystats/recentstats').then(response => {
                     setTickDate(response);
                 });
             }

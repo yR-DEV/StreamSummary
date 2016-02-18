@@ -6,6 +6,7 @@ class StatsTableController {
         this.$interval = $interval;
         let stats = [];
         let initialRender = 0;
+        let type = { statType: 'table'};
 
         let updateStatsTable = () => {
             stats = [];

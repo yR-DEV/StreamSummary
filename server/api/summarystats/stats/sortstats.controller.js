@@ -1,6 +1,6 @@
 'use-strict';
 
-export function sortSummaryDataIndex(queryData, query) {
+export function sortsummarygraphdata(queryData, query) {
     if(query.time === 'hour') {
         return sortHourData(queryData, query);
     }

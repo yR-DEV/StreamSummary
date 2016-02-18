@@ -1,38 +1,37 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /api/things              ->  index
- * POST    /api/things              ->  create
- * GET     /api/things/:id          ->  show
- * PUT     /api/things/:id          ->  update
- * DELETE  /api/things/:id          ->  destroy
- */
-'use strict';
-
+// /**
+//  * Using Rails-like standard naming convention for endpoints.
+//  * GET     /api/things              ->  index
+//  * POST    /api/things              ->  create
+//  * GET     /api/things/:id          ->  show
+//  * PUT     /api/things/:id          ->  update
+//  * DELETE  /api/things/:id          ->  destroy
+//  */
+// 'use strict';
+//
 import _ from 'lodash';
-import mongoose from 'mongoose';
-import https from 'https';
+// import mongoose from 'mongoose';
+// import https from 'https';
 import fs from 'fs';
-import StatsSchema from './stats.model';
-import savestatscontroller from './savestats.controller';
+// import StatsSchema from './stats.model';
+// import savestatscontroller from './stats/savestats.controller';
+import { querygraphstats, querytablestats, queryrecentstats } from './stats/querystats.controller';
+import { sortSummaryData } from './stats/sortstats.controller.js';
 
-//db call to pull the x most recent entries to graph out.
-//the call to update the graph will tick milliseconds after this call
-// export function graphstats(req, res) {
-//     return StatsSchema.find().sort({"date": -1}).limit(10).then(function(data) {
-//         data.reverse();
-//         res.json(data);
-//     });
-// }
+export function graphstats(req, res) {
+    let query = req.body;
+    querygraphstats(req).then((data) => {
+        res.json(data)
+    });
+};
 
-export function statstable(req, res) {
-    return StatsSchema.find().sort({"date": -1}).limit(20).then(function(data) {
-        data.reverse();
+export function tablestats(req, res) {
+    querytablestats().then((data) => {
         res.json(data);
     });
 }
 
-export function lastentry(req, res) {
-    return StatsSchema.find().sort({"_id": -1}).limit(1).then(function(data) {
+export function recentstats(req, res) {
+    queryrecentstats().then((data) => {
         res.json(data);
     });
 }
