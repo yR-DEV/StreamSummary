@@ -6,9 +6,7 @@ class ViewersGraphController {
         this.$interval = $interval;
         this.$timeout = $timeout;
         let ctx = document.getElementById('viewersGraph').getContext("2d");
-        // let timeGraphQuery = {statType: 'viewers', time: 'minute'}
-        // let typeFilter = 'minute';
-        let timeGraphQuery;
+        let typeFilter = 'minute';
         let myLineChart;
 
         this.filterGraphByTime = (typeFilter) => {
@@ -16,7 +14,7 @@ class ViewersGraphController {
             this.notEnoughRecords = false;
             this.time = typeFilter;
             let typeAndTime = { statType: 'viewers', time: typeFilter };
-            timeGraphQuery = typeFilter;
+            let timeGraphQuery = typeFilter;
             getGraphData(typeAndTime);
         }
 
@@ -25,7 +23,7 @@ class ViewersGraphController {
         }
 
         let getGraphData = (viewersQuery) => {
-            $http.post('/api/summarystats/sortviewerstats', viewersQuery).then(response => {
+            $http.post('/api/summarystats/getviewerstats', viewersQuery).then(response => {
                 console.log(response);
                 if(response.data !== false) {
                     this.showGraph = true;
@@ -75,6 +73,9 @@ class ViewersGraphController {
                 myLineChart = new Chart(ctx).Line(graphData);
             }
         }
+
+        this.filterGraphByTime(typeFilter)
+
         $interval(dataTimer, 60000);
     }
 }

@@ -4,8 +4,7 @@
 import fs from 'fs';
 import StatsSchema from './stats.model';
 //sorting logic imports
-import { sortChannelDataIndex } from './sortchannelstats.controller';
-import { sortViewerIDataIndex } from './sortviewerstats.controller';
+import { sortSummaryDataIndex } from './sortstats.controller';
 
 
 export function queryindex(req, res) {
@@ -16,7 +15,7 @@ export function queryindex(req, res) {
     });
 };
 
-//returning 8 records to the front end  q
+//returning 8 records to the front end
 export function querystats(req) {
     if(req.body.time === 'minute') {
         return StatsSchema.find().sort({"_id": -1}).limit(8).then(function(minutedata) {
@@ -25,21 +24,26 @@ export function querystats(req) {
     }
     if(req.body.time === 'hour') {
         return StatsSchema.find().sort({"_id": -1}).limit(480).then((hourdata) => {
-            return statTypeSorter(req.body, hourdata);
+            return sortSummaryDataIndex(hourdata, req.body);
+
         });
     }
     if(req.body.time === 'day') {
         return StatsSchema.find().sort({"_id": -1}).limit(92160).then(function(daydata) {
-            return statTypeSorter(req.body, daydata);
+            return sortSummaryDataIndex(daydata, req.body);
         });
     }
 }
 
-export function statTypeSorter(query, queryData) {
-    if(query.statType === 'channels') {
-        return sortChannelDataIndex(queryData, query.time);
-    }
-    if(query.statType === 'viewers') {
-        return sortViewerIDataIndex(queryData, query.time);
-    }
+export function statstable(req, res) {
+    return StatsSchema.find().sort({"date": -1}).limit(20).then(function(data) {
+        data.reverse();
+        res.json(data);
+    });
+}
+
+export function lastentry(req, res) {
+    return StatsSchema.find().sort({"_id": -1}).limit(1).then(function(data) {
+        res.json(data);
+    });
 }

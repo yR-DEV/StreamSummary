@@ -17,12 +17,12 @@ import savestatscontroller from './savestats.controller';
 
 //db call to pull the x most recent entries to graph out.
 //the call to update the graph will tick milliseconds after this call
-export function graphstats(req, res) {
-    return StatsSchema.find().sort({"date": -1}).limit(10).then(function(data) {
-        data.reverse();
-        res.json(data);
-    });
-}
+// export function graphstats(req, res) {
+//     return StatsSchema.find().sort({"date": -1}).limit(10).then(function(data) {
+//         data.reverse();
+//         res.json(data);
+//     });
+// }
 
 export function statstable(req, res) {
     return StatsSchema.find().sort({"date": -1}).limit(20).then(function(data) {

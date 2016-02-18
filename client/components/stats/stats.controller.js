@@ -11,7 +11,7 @@ class StatsController {
             this.statDate;
 
             let getLastUpdateDate = () => {
-                $http.get('/api/summarystats/lastentry').then(response => {
+                $http.get('/api/summarystats/getlastentry').then(response => {
                     setTickDate(response);
                 });
             }

@@ -6,9 +6,7 @@ class ChannelsGraphController {
         this.$interval = $interval;
         this.$timeout = $timeout;
         let ctx = document.getElementById("channelsGraph").getContext("2d");
-        // let timeGraphQuery = {statType: 'channels', time: 'minute'}
-        // let typeFilter = 'minute';
-        let timeGraphQuery;
+        let typeFilter = 'minute';
         let myLineChart;
 
         this.filterGraphByTime = (typeFilter) => {
@@ -16,7 +14,7 @@ class ChannelsGraphController {
             this.notEnoughRecords = false;
             this.time = typeFilter;
             let typeAndTime = { statType: 'channels', time: typeFilter };
-            timeGraphQuery = typeFilter;
+            let timeGraphQuery = typeFilter;
             getGraphData(typeAndTime);
         }
 
@@ -25,8 +23,7 @@ class ChannelsGraphController {
         }
 
         let getGraphData = (channelQuery) => {
-            console.log(timeGraphQuery);
-            $http.post('/api/summarystats/sortchannelstats', channelQuery).then(response => {
+            $http.post('/api/summarystats/getchannelstats', channelQuery).then(response => {
                 console.log(response);
                 if(response.data !== false) {
                     console.log(response);
@@ -77,6 +74,8 @@ class ChannelsGraphController {
                 myLineChart = new Chart(ctx).Line(graphData);
             }
         }
+        this.filterGraphByTime(typeFilter);
+
         $interval(dataTimer, 60000);
     }
 }
