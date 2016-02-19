@@ -11,7 +11,6 @@ export function sortsummarygraphdata(queryData, query) {
 }
 
 export function sortHourData(hourData, query) {
-    console.log('sorting hour data');
     let hours = [];
     const stat = query.statType;
     if(hourData.length >= 480) {
@@ -20,7 +19,6 @@ export function sortHourData(hourData, query) {
             let perHourAverage;
             for(var y = 0; y <= 59; y++) {
                 if(!perHourAverage && !startingDate) {
-                    console.log('8 times');
                     perHourAverage = hourData[0][stat];
                     startingDate = hourData[0].date;
                     hourData.splice(0, 1);
@@ -36,13 +34,14 @@ export function sortHourData(hourData, query) {
         hours.reverse();
         return hours;
     } else {
-        return false;
+        console.log(stat);
+        return { false: false, length: hourData.length};
     }
 }
 
 export function sortDayData(dayData, query) {
     let days = [];
-    let stat = query.statType;
+    const stat = query.statType;
     if(dayData.length >= 92160) {
         for(var i = 0; i <= 7; i++) {
             let startingDate;
@@ -64,7 +63,8 @@ export function sortDayData(dayData, query) {
         days.reverse();
         return days;
     } else {
-        return false;
+        console.log(stat);
+        return { false: false, length: dayData.length};
     }
 
 }

@@ -33,7 +33,7 @@ class ViewersGraphController {
 
         let getGraphData = (viewersQuery) => {
             $http.post('/api/summarystats/viewerstats', viewersQuery).then(response => {
-                if(response.data !== false) {
+                if(response.data.false !== false) {
                     this.showGraph = true;
                     setData(response);
                 } else {

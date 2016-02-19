@@ -33,7 +33,7 @@ class ChannelsGraphController {
 
         let getGraphData = (channelQuery) => {
             $http.post('/api/summarystats/channelstats', channelQuery).then(response => {
-                if(response.data !== false) {
+                if(response.data.false !== false) {
                     this.showGraph = true;
                     setData(response);
                 } else {

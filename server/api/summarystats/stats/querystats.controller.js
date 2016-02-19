@@ -8,9 +8,22 @@ import { sortsummarygraphdata } from './sortstats.controller';
 
 
 //returning 8 records to the front end
+export function queryrecentstats() {
+    return StatsSchema.find().sort({"_id": -1}).limit(1).then((data) => {
+        return data;
+    });
+}
+
+export function querytablestats() {
+    return StatsSchema.find().sort({"date": -1}).limit(20).then((data) => {
+        data.reverse();
+        return data;
+    });
+}
+
 export function querygraphstats(req) {
     if(req.body.time === 'minute') {
-        return StatsSchema.find().sort({"_id": -1}).limit(8).then(function(minutedata) {
+        return StatsSchema.find().sort({"_id": -1}).limit(8).then((minutedata) => {
             return minutedata;
         });
     }
@@ -21,21 +34,8 @@ export function querygraphstats(req) {
         });
     }
     if(req.body.time === 'day') {
-        return StatsSchema.find().sort({"_id": -1}).limit(92160).then(function(daydata) {
+        return StatsSchema.find().sort({"_id": -1}).limit(92160).then((daydata) => {
             return sortsummarygraphdata(daydata, req.body);
         });
     }
-}
-
-export function querytablestats() {
-    return StatsSchema.find().sort({"date": -1}).limit(20).then(function(data) {
-        data.reverse();
-        return data;
-    });
-}
-
-export function queryrecentstats() {
-    return StatsSchema.find().sort({"_id": -1}).limit(1).then(function(data) {
-        return data;
-    });
 }
