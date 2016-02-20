@@ -1,7 +1,7 @@
 'use-strict';
 
 import express from 'express';
-import { getstreamers } from './streamers.controller';
+import { getstreamers } from './streamerstats.controller';
 
 var router = express.Router();
 

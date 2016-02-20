@@ -5,18 +5,23 @@ import mongoose from 'mongoose';
 import https from 'https';
 import fs from 'fs';
 import dateformat from 'dateformat';
-import statscontroller from '../stats.controller';
-import StatsSchema from '../stats.model';
+import StatsSchema from '../summarystats.model';
+import dotenv from 'dotenv';
 
 let options = {
     host: 'api.twitch.tv',
-    path: '/kraken/streams/summary'
+    path: '/kraken/streams/summary',
+    method: 'GET',
+    headers: {
+      ClientID: process.env.TWITCH_CLIENT_ID,
+      accept: 'application/json'
+    }
 };
-
 
 export function getKrackenSummaryStats() {
     console.log('ticked from stats.controller');
     https.get(options, function(res) {
+      console.log(options);
         let bodyChunks = [];
         res.on('data', function(chunk) {
             bodyChunks.push(chunk);

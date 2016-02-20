@@ -5,7 +5,7 @@ import express from 'express';
 var router = express.Router();
 
 //one route file
-import { graphstats, tablestats, recentstats } from './stats.controller';
+import { graphstats, tablestats, recentstats } from './summarystats.controller';
 
 var router = express.Router();
 

@@ -10,8 +10,8 @@
 
 import fs from 'fs';
 
-import { querygraphstats, querytablestats, queryrecentstats } from './stats/querystats.controller';
-import { getKrackenSummaryStats } from './stats/savestats.controller';
+import { querygraphstats, querytablestats, queryrecentstats } from './stats/querysummarystats.controller';
+import { getKrackenSummaryStats } from './stats/savesummarystats.controller';
 
 export function graphstats(req, res) {
     let query = req.body;
@@ -32,4 +32,4 @@ export function recentstats(req, res) {
     });
 }
 
-setInterval(getKrackenSummaryStats, 10000);
+setInterval(getKrackenSummaryStats, 60000);

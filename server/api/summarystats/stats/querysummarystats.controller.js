@@ -2,9 +2,9 @@
 
 //module imports
 import fs from 'fs';
-import StatsSchema from '../stats.model';
+import StatsSchema from '../summarystats.model';
 //sorting logic
-import { sortsummarygraphdata } from './sortstats.controller';
+import { sortsummarygraphdata } from './sortsummarystats.controller';
 
 
 //returning 8 records to the front end
