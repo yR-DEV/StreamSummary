@@ -799,7 +799,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'concurrent:pre',
     'concurrent:dist',
-    'injector',
+    // 'injector',
     'wiredep:client',
     'useminPrepare',
     'postcss',

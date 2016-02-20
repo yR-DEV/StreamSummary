@@ -28,7 +28,7 @@ export function querygraphstats(req) {
         });
     }
     if(req.body.time === 'hour') {
-        return StatsSchema.find().sort({"_id": -1}).limit(480).then((hourdata) => {
+        return StatsSchema.find().sort({"_id": -1}).limit(490).then((hourdata) => {
             return sortsummarygraphdata(hourdata, req.body);
 
         });
