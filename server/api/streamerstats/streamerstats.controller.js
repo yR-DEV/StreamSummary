@@ -2,10 +2,12 @@
 
 import fs from 'fs';
 
-import { getstreamerstats } from './stats/savestreamerstats.controller';
+import { getstreamerstats } from './stats/querystreamerstats.controller';
 
 export function getstreamers(req, res) {
-    res.send(200);
-}
+  getstreamerstats(req).then((data) => {
+    res.json(data);
+  });
+};
 
-setInterval(getstreamerstats, 10000);
+setInterval(getstreamerstats, 600000);

@@ -22,6 +22,7 @@
     "method-override": "^2.3.5",
     "mongoose": "^4.1.2",
     "morgan": "~1.6.1",
+    "mpromise": "^0.5.5",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {

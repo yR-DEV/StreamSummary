@@ -1,0 +1,9 @@
+<div ng-controller="StreamersTableController as streamerstable">
+  <div class="jumbotron streamers-table-jumbotron">
+    <div id="streamers-table">
+      <p ng-repeat="streamer in streamerstable.streamers">
+        {{streamer.channelname}}
+      </p>
+    </div>
+  </div>
+</div>

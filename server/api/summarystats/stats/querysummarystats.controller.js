@@ -3,7 +3,6 @@
 //module imports
 import fs from 'fs';
 import StatsSchema from '../summarystats.model';
-//sorting logic
 import { sortsummarygraphdata } from './sortsummarystats.controller';
 
 

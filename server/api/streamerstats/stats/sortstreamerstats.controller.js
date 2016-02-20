@@ -1,7 +1,6 @@
 'use-strict';
 
 import dateformat from 'dateformat';
-
 import { savedsortedresponse } from './savestreamerstats.controller';
 import { streamerisnew, insertnewstreamer, pushnewstreamerstats } from './querystreamerstats.controller';
 
@@ -11,11 +10,9 @@ export function sortstreamerdata() {
 
 export function sortstreamerquerystats(data) {
   data.streams.forEach((gamer) => {
-  // var gamer = data[0];
     return streamerisnew(gamer).then((exist) => {
       if(exist === null) {
         return sortnewstreamer(gamer).then((newstreamer) => {
-          console.log(newstreamer);
           return newstreamer;
         });
       }
@@ -41,6 +38,7 @@ export function sortnewstreamer(gamer) {
     channelname: gamer.channel.name,
     channelurl: gamer.channel.url,
     twitchpartner: gamer.channel.partner,
+    logo: gamer.channel.logo,
     streamerstats: [newStreamerStats],
   };
   return insertnewstreamer(streamer).then((data) => {
@@ -57,8 +55,7 @@ export function sortandpushstreamerstats(gamer) {
     channelviews: gamer.channel.views,
     currentgame: gamer.channel.game
   }
-  return pushnewstreamerstats(gamer, newStatSet).then((updated) => {
-    console.log(updated);
-    return updated;
+  return pushnewstreamerstats(gamer, newStatSet).then((streamerUpdated) => {
+    return streamerUpdated;
   })
 }

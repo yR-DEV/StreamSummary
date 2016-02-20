@@ -5,6 +5,6 @@ import { getstreamers } from './streamerstats.controller';
 
 var router = express.Router();
 
-router.get('/topstreamers', getstreamers);
+router.get('/getstreamers', getstreamers);
 
 module.exports = router;

@@ -16,15 +16,16 @@ let options = {
 };
 
 export function getstreamerstats() {
-  console.log('ayy');
   https.get(options, function(res) {
-    console.log(options);
       let bodyChunks = [];
       res.on('data', function(chunk) {
           bodyChunks.push(chunk);
       }).on('end', function() {
           let body = Buffer.concat(bodyChunks);
           body = JSON.parse(body);
+          if (body === undefined || body.channel === undefined || !body) {
+            setTimeout(getstreamerstats, 5000);
+          }
           sortstreamerquerystats(body);
       })
   }).on('error', function(e) {
