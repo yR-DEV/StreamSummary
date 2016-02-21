@@ -59,3 +59,16 @@ export function sortandpushstreamerstats(gamer) {
     return streamerUpdated;
   })
 }
+
+export function streamerviewersandfollowers(gamers) {
+  let streamers = [];
+  gamers.forEach((streamer) => {
+    if(streamer.streamerstats.length > 1) {
+      streamer.streamerstats.forEach((entry) => {
+        streamer.followers = entry.followers;
+      })
+    }
+    streamers.push(streamer);
+  })
+  return streamers;
+}

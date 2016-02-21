@@ -32,6 +32,11 @@ export function pushnewstreamerstats(gamer, newStats) {
 export function getstreamerstats() {
   // if(req.body === 'followers') {
     return StreamerSchema.find().sort({ "followers": -1 }).limit(6).then((data) => {
+      data.forEach(function(streamer) {
+        if (streamer.streamerstats.length > 1) {
+          console.log('greater than 1');
+        }
+      })
       return data;
     });
   // };

@@ -4,6 +4,15 @@
   border-radius: 15px;
 
   #streamers-table {
-    
+
+    .streamer-table-row {
+      margin-bottom: 20px;
+      margin-left: 10px;
+
+      .streamer-logo {
+        width: 150px;
+        float: left;
+      }
+    }
   }
 }
