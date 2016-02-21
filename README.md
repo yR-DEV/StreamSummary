@@ -78,7 +78,10 @@ Running `npm test` will run the unit tests with karma.
 - ~~Refactor refactor refactor the summary stats!!!!~~
 - ~~Consider using the update method for chart.js instead of just rerendeing..~~
     * ~~I just like the rendering animation even though its harder to see the change in the graph.~~
-- Start to work on getting statistics about streamers now, it looks like I will have to actually register my application with twitch in order to make more api calls.     
+- ~~Start to work on getting statistics about streamers now, it looks like I will have to actually register my application with twitch in order to make more api calls.~~   
+- Create a gulp file to handle the production build since it seems like the production build of grunt is a little sloppy.
+- Get the average viewers and update follower count of each channel for the top 6 channels.
+- add buttons that will filter between channels total viewer count and the average viewers for when they are live.
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~
