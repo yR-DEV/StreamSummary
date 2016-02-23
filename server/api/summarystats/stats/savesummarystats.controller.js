@@ -5,16 +5,23 @@ import mongoose from 'mongoose';
 import https from 'https';
 import fs from 'fs';
 import dateformat from 'dateformat';
-import statscontroller from './stats.controller';
-import StatsSchema from './stats.model';
+import StatsSchema from '../summarystats.model';
+import dotenv from 'dotenv';
 
 let options = {
     host: 'api.twitch.tv',
-    path: '/kraken/streams/summary'
+    path: '/kraken/streams/summary',
+    method: 'GET',
+    headers: {
+      ClientID: process.env.TWITCH_CLIENT_ID,
+      accept: 'application/json'
+    }
 };
-let getInitialKrakenStats = () => {
-      console.log('hello?');
+
+export function getKrackenSummaryStats() {
+    console.log('ticked from stats.controller');
     https.get(options, function(res) {
+      // console.log(options);
         let bodyChunks = [];
         res.on('data', function(chunk) {
             bodyChunks.push(chunk);
@@ -27,8 +34,7 @@ let getInitialKrakenStats = () => {
                 "channels": body.channels,
                 "viewers": body.viewers
             };
-            console.log('parsed json http response');
-            console.log(statTick);
+            console.log('saving parsed json');
             saveStats(statTick);
         })
     }).on('error', function(e) {
@@ -37,8 +43,8 @@ let getInitialKrakenStats = () => {
 }
 let saveStats = (statTick) => {
     if(statTick.channels === undefined || statTick.viewers === undefined
-                    || statTick === {} || statTick.status === 503 || statTick.status === 404) {
-        getInitialKrakenStats();
+      || statTick === {} || statTick.status === 503 || statTick.status === 404) {
+        getKrackenSummaryStats();
     } else {
         var statTickEntry = new StatsSchema(statTick);
         return statTickEntry.save(function(err) {
@@ -47,9 +53,9 @@ let saveStats = (statTick) => {
             }
         }).then(function(data) {
             console.log('tick successfully saved in db');
-            console.log(data);
+            // console.log(data);
             return data;
         });
     }
 };
-setInterval(getInitialKrakenStats, 3000);
+setInterval(getKrackenSummaryStats, 10000);

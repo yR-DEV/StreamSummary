@@ -11,22 +11,26 @@ export function sortsummarygraphdata(queryData, query) {
 }
 
 export function sortHourData(hourData, query) {
-    console.log('sorting hour data');
     let hours = [];
     const stat = query.statType;
+    console.log(  hourData[299], hourData[298]);
     if(hourData.length >= 480) {
+      console.log(hourData.length);
         for(var i = 0; i <= 7 ; i++) {
             let startingDate;
             let perHourAverage;
-            for(var y = 0; y <= 59; y++) {
-                if(!perHourAverage && !startingDate) {
-                    console.log('8 times');
-                    perHourAverage = hourData[0][stat];
-                    startingDate = hourData[0].date;
+            for(var y = 1; y <= 60; y++) {
+                if(!perHourAverage) {
+                    perHourAverage = hourData[y][stat];
+                    startingDate = hourData[y].date;
                     hourData.splice(0, 1);
                 } else {
-                    perHourAverage = Math.floor((perHourAverage += hourData[y][stat]) / 2);
-                    hourData.splice(0, 1);
+                    if(hourData[y] === undefined) {
+                      console.log('the entry is undefined?');
+                    } else {
+                      perHourAverage = Math.floor((perHourAverage += hourData[y][stat]) / 2);
+                    }
+                      hourData.splice(0, 1);
                 }
             }
             let entry = {date: startingDate};
@@ -36,7 +40,7 @@ export function sortHourData(hourData, query) {
         hours.reverse();
         return hours;
     } else {
-        return false;
+        return { false: false, length: hourData.length};
     }
 }
 
@@ -53,8 +57,12 @@ export function sortDayData(dayData, query) {
                     perDayAverage = dayData[0][stat];
                     dayData.splice(0, 1);
                 } else {
+                  if(dayData[y] === undefined) {
+                    console.log('undefined again');
+                  } else {
                     perDayAverage = ((perDayAverage += dayData[y][stat]) / 2);
                     dayData.splice(0, 1);
+                  }
                 }
             }
             let entry = {date: startingDate};
@@ -64,7 +72,7 @@ export function sortDayData(dayData, query) {
         days.reverse();
         return days;
     } else {
-        return false;
+        console.log(stat);
+        return { false: false, length: dayData.length};
     }
-
 }

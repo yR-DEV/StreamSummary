@@ -6,16 +6,12 @@
 //  * PUT     /api/things/:id          ->  update
 //  * DELETE  /api/things/:id          ->  destroy
 //  */
-// 'use strict';
-//
-import _ from 'lodash';
-// import mongoose from 'mongoose';
-// import https from 'https';
+ 'use strict';
+
 import fs from 'fs';
-// import StatsSchema from './stats.model';
-// import savestatscontroller from './stats/savestats.controller';
-import { querygraphstats, querytablestats, queryrecentstats } from './stats/querystats.controller';
-import { sortSummaryData } from './stats/sortstats.controller.js';
+
+import { querygraphstats, querytablestats, queryrecentstats } from './stats/querysummarystats.controller';
+import { getKrackenSummaryStats } from './stats/savesummarystats.controller';
 
 export function graphstats(req, res) {
     let query = req.body;
@@ -35,3 +31,5 @@ export function recentstats(req, res) {
         res.json(data);
     });
 }
+
+setInterval(getKrackenSummaryStats, 60000);
