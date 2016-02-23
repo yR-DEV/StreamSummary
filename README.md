@@ -22,10 +22,7 @@ STREAMS SUMMARY
 __________
 ========
 
-## Getting Started
-
-
-### What ya need
+## What ya need!
 
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
@@ -50,7 +47,8 @@ Run `grunt build` for building and `grunt serve` for preview.
 
 ## Testing the app
 
-Running `npm test` will run the unit tests with karma.
+~~Running `npm test` will run the unit tests with karma.~~
+      * removed unit testing for now, will begin testing when I have a more vigorous build
 
 
 ## TODO:
@@ -79,12 +77,19 @@ Running `npm test` will run the unit tests with karma.
 - ~~Consider using the update method for chart.js instead of just rerendeing..~~
     * ~~I just like the rendering animation even though its harder to see the change in the graph.~~
 - ~~Start to work on getting statistics about streamers now, it looks like I will have to actually register my application with twitch in order to make more api calls.~~   
-- Create a gulp file to handle the production build since it seems like the production build of grunt is a little sloppy.
+- ~~Create a gulp file to handle the production build since it seems like the production build of grunt is a little sloppy.~~
+      * put off for now, want to get up streamer stats and a few graphs before migrating to gulp
 - Get the average viewers and update follower count of each channel for the top 6 channels.
 - add buttons that will filter between channels total viewer count and the average viewers for when they are live.
+- decide on graphs or tables for the top streamers.
+- ~~Start skeleton API endpoints for game stats. See what data comes back from querying the games api endpoint of Kraken.~~
+- Start game stats, querying twitch API for stats per game
+      * record top x number of games
+
 
 ## Things to learn
 - ~~Chart.js and how it accesses data from the backend~~
     * ~~Do I need to set any custom global settings for my line graph?~~
     * ~~how does the chart.js `update()` exactly work? Does it rerender or do I need a page refresh (Please be the former...)~~
 - ~~exactly how these front end angular components are compiled so I can use it like a react component/class (I have a feeling it is the directive of each component)~~    
+- Gulp instead of grunt for asset management.
