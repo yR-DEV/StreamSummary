@@ -13,6 +13,7 @@ let options = {
     path: '/kraken/streams/summary'
 };
 let getInitialKrakenStats = () => {
+      console.log('hello?');
     https.get(options, function(res) {
         let bodyChunks = [];
         res.on('data', function(chunk) {
@@ -51,4 +52,4 @@ let saveStats = (statTick) => {
         });
     }
 };
-setInterval(getInitialKrakenStats, 60000);
+setInterval(getInitialKrakenStats, 3000);
