@@ -17,7 +17,7 @@ let options = {
 
 export function getstreamerstats() {
   https.get(options, function(res) {
-        console.log(res);
+        // console.log(res);
       let bodyChunks = [];
       res.on('data', function(chunk) {
           bodyChunks.push(chunk);
@@ -34,8 +34,4 @@ export function getstreamerstats() {
   });
 }
 
-// setInterval(getstreamerstats, 10000)
-
-// export function savesortedresponse() {
-//
-// }
+setInterval(getstreamerstats, 60000);

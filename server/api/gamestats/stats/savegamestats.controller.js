@@ -16,15 +16,15 @@ let options = {
 
 export function getGameStats() {
   https.get(options, function(res) {
-    console.log(options);
+    // console.log(options);
       let bodyChunks = [];
       res.on('data', function(chunk) {
           bodyChunks.push(chunk);
       }).on('end', function() {
           let body = Buffer.concat(bodyChunks);
           body = JSON.parse(body);
-          console.log('saving parsed json');
-          console.log(body.top);
+          // console.log('saving parsed json');
+          // console.log(body.top);
       })
   }).on('error', function(e) {
       console.log('ERROR: ' + e);

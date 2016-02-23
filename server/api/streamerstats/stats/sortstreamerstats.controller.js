@@ -1,7 +1,7 @@
 'use-strict';
 
 import dateformat from 'dateformat';
-import { savedsortedresponse } from './savestreamerstats.controller';
+import { savedsortedresponse } from './querynewstreamerstats.controller';
 import { streamerisnew, insertnewstreamer, pushnewstreamerstats } from './querystreamerstats.controller';
 
 export function sortstreamerdata() {
@@ -39,6 +39,9 @@ export function sortnewstreamer(gamer) {
     channelurl: gamer.channel.url,
     twitchpartner: gamer.channel.partner,
     logo: gamer.channel.logo,
+    totalfollowers: gamer.channel.followers,
+    averageviewers: gamer.viewers,
+    totalchannelviews: gamer.channel.views,
     streamerstats: [newStreamerStats],
   };
   return insertnewstreamer(streamer).then((data) => {
@@ -47,6 +50,7 @@ export function sortnewstreamer(gamer) {
 };
 
 export function sortandpushstreamerstats(gamer) {
+  let newGamer = gamer
   let now = new Date;
   let newStatSet = {
     date: (dateformat(now, "h:MM:ss TT, mm/dd/yyyy, ") +"GMT-0700" ),
@@ -60,7 +64,7 @@ export function sortandpushstreamerstats(gamer) {
   })
 }
 
-export function streamerviewersandfollowers(gamers) {
+export function sortstreamerviewersandfollowers(gamers) {
   let streamers = [];
   gamers.forEach((streamer) => {
     if(streamer.streamerstats.length > 1) {
@@ -70,5 +74,6 @@ export function streamerviewersandfollowers(gamers) {
     }
     streamers.push(streamer);
   })
+  console.log(streamers);
   return streamers;
 }

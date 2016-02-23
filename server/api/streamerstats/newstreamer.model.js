@@ -12,6 +12,9 @@ let StreamerSchema = new mongoose.Schema({
   channelurl: String,
   twitchpartner: Boolean,
   logo: String,
+  totalfollowers: Number,
+  averageviewers: Number,
+  totalchannelviews: Number,
   streamerstats: [StreamerStatsSchema]
 });
 
