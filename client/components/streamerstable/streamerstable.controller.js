@@ -11,14 +11,11 @@ class StreamersTableController {
     this.getStreamerData = (queryFilter) => {
       this.reqPost.filter = queryFilter;
       $http.post('/api/streamerstats/getstreamers', this.reqPost).then(response => {
-        setStreamer(response);
+        this.streamers = response.data;
       });
     }
-
-    let setStreamer = (res) => {
-      this.streamers = res.data;
-    }
-    this.getStreamerData('followers');
+    // this.$timeout(this.getStreamerData, 6000)
+    // this.getStreamerData('followers');
   }
 }
 

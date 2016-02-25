@@ -1,8 +1,11 @@
 'use-strict';
 
+import _ from 'lodash';
+import mongoose from 'mongoose';
 import https from 'https';
 import fs from 'fs';
 import dateformat from 'dateformat';
+import dotenv from 'dotenv';
 import { sortStreamerStats } from './sortstreamerstats.controller';
 
 let options = {
@@ -14,7 +17,7 @@ let options = {
       accept: 'application/json'
     }
 };
-
+console.log('NEW STREAMER STATS');
 export function getNewStreamerStats() {
   https.get(options, function(res) {
       let bodyChunks = [];
@@ -26,6 +29,7 @@ export function getNewStreamerStats() {
           if (body === undefined || body.channel === undefined || !body) {
             setTimeout(getNewStreamerStats, 5000);
           }
+          console.log('GET NEW STREAMER STATS');
           console.log(body);
           sortStreamerStats(body);
       })
@@ -33,5 +37,5 @@ export function getNewStreamerStats() {
       console.log('ERROR: ' + e);
   });
 }
-
-setInterval(getNewStreamerStats, 10000);
+// getNewStreamerStats();
+// setInterval(getNewStreamerStats, 3000);
