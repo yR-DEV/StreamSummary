@@ -2,15 +2,15 @@
 
 import fs from 'fs';
 import StreamerSchema from '../newstreamer.model';
-import { sortstreamerdata, sortstreamersviewersandfollowers } from './sortstreamerstats.controller';
+import { sortViewersAndFollowers } from './sortstreamerstats.controller';
 
-export function streamerisnew(gamer) {
+export function isStreamerNew(gamer) {
   return StreamerSchema.findOne({ "channelname": gamer.channel.name }).then((entered) => {
     return entered;
   });
 };
 
-export function insertnewstreamer(gamer) {
+export function saveNewStreamer(gamer) {
   let newStreamer = new StreamerSchema(gamer);
   return newStreamer.save((err) => {
     if(err) { console.log(err); }
@@ -19,11 +19,11 @@ export function insertnewstreamer(gamer) {
   });
 };
 
-export function pushnewstreamerstats(gamer, newStats) {
+export function pushStreamerStats(gamer, newStats) {
   return StreamerSchema.findOne({ "channelid": gamer.channel._id }).then((recordtoupdate) => {
     return recordtoupdate.update({ $push: { "streamerstats": newStats }}).then((err, records) => {
       return StreamerSchema.findOne({ "channelid":gamer.channel._id }).then((updated) => {
-        return updateviewersandfollowers(updated, gamer).then((updatedstreamer) => {
+        return updateViewersAndFollowers(updated, gamer).then((updatedstreamer) => {
           return updatedstreamer;
         });
       });
@@ -31,21 +31,38 @@ export function pushnewstreamerstats(gamer, newStats) {
   });
 };
 
-export function getstreamerstats() {
-  // if(req.body === 'followers') {
+export function getStreamerStats(req) {
+  console.log('BODY');
+  console.log(req.body);
+  return true;
+
+  if(req.body === 'followers') {
     return StreamerSchema.find().sort({ "totalfollowers": -1 }).limit(6).then((data) => {
-      data.forEach(function(streamer) {
-        if (streamer.streamerstats.length > 1) {
-          console.log('greater than 1');
-        }
-      })
-      // console.log(data);
+      if(data === undefined) {
+        return 200;
+      }
       return data;
     });
-  // };
+  }
+  // if(req.body === 'averageviewers') {
+  //   return StreamerSchema.find().sort({ "averageviewers": -1 }).limit(6).then((data) => {
+  //     if(data === undefined) {
+  //       return 200;
+  //     }
+  //     return data;
+  //   });
+  // }
+  // if(req.body === 'channelviews') {
+  //   return StreamerSchema.find().sort({ "totalchannelviews": -1 }).limit(6).then((data) => {
+  //     if(data === undefined) {
+  //       return 200;
+  //     }
+  //     return data;
+  //   });
+  // }
 };
 
-export function updateviewersandfollowers(updatedrecord, recentstatresponse) {
+export function updateViewersAndFollowers(updatedrecord, recentstatresponse) {
   return StreamerSchema.findOne({ "channelid": updatedrecord.channelid }).then((data) => {
     return data.update({  "totalfollowers": recentstatresponse.channel.followers,
       "totalchannelviews": recentstatresponse.channel.views,

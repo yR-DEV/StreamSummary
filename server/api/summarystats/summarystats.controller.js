@@ -10,26 +10,26 @@
 
 import fs from 'fs';
 
-import { querygraphstats, querytablestats, queryrecentstats } from './stats/querysummarystats.controller';
-import { getKrackenSummaryStats } from './stats/savesummarystats.controller';
+import { queryGraphStats, queryTableStats, queryRecentStats } from './stats/querysummarystats.controller';
+import { getStreamSummaryStats } from './stats/savesummarystats.controller';
 
-export function graphstats(req, res) {
+export function graphStats(req, res) {
     let query = req.body;
-    querygraphstats(req).then((data) => {
+    queryGraphStats(req).then((data) => {
         res.json(data)
     });
 };
 
-export function tablestats(req, res) {
-    querytablestats().then((data) => {
+export function tableStats(req, res) {
+    queryTableStats().then((data) => {
         res.json(data);
     });
 }
 
-export function recentstats(req, res) {
-    queryrecentstats().then((data) => {
+export function recentStats(req, res) {
+    queryRecentStats().then((data) => {
         res.json(data);
     });
 }
 
-setInterval(getKrackenSummaryStats, 60000);
+setInterval(getStreamSummaryStats, 60000);

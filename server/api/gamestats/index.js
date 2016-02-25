@@ -1,10 +1,10 @@
 'use-strict';
 
 import express from 'express';
-import { getgames } from './gamestats.controller';
+import { getGames } from './gamestats.controller';
 
 var router = express.Router();
 
-router.get('/topgames', getgames);
+router.get('/topgames', getGames);
 
 module.exports = router;

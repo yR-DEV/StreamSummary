@@ -4,6 +4,13 @@
       <!-- <p ng-repeat="streamer in streamerstable.streamers">
         {{streamer.channelname}}
       </p> -->
+      <div id="streamer-filter-buttons">
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" ng-click="streamerstable.getStreamerData('averageviewers')">Average Viewers</button>
+              <button type="button" class="btn btn-default" ng-click="streamerstable.getStreamerData('channelviews')">Channel Views</button>
+              <button type="button" class="btn btn-default" ng-click="streamerstable.getStreamerData('followers')">TotalFollowers</button>
+          </div>
+      </div>
       <div class="row streamer-table-row" ng-repeat="streamer in streamerstable.streamers">
         <div class="col-md-3">
           <a href="{{streamer.channelurl}}">

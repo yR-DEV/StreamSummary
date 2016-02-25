@@ -6,11 +6,11 @@ class StreamersTableController {
     this.$interval = $interval;
     this.$timeout = $timeout;
     this.streamers =[];
-    this.lol = 'asdfasdf';
+    this.reqPost = { "filter": '' }
 
-    this.getStreamerData = () => {
-      $http.get('/api/streamerstats/getstreamers').then(response => {
-      //   console.log(response);
+    this.getStreamerData = (queryFilter) => {
+      this.reqPost.filter = queryFilter;
+      $http.post('/api/streamerstats/getstreamers', this.reqPost).then(response => {
         setStreamer(response);
       });
     }
@@ -18,7 +18,7 @@ class StreamersTableController {
     let setStreamer = (res) => {
       this.streamers = res.data;
     }
-    this.getStreamerData();
+    this.getStreamerData('followers');
   }
 }
 

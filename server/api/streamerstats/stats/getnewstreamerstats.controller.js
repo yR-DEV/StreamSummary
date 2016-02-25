@@ -3,7 +3,7 @@
 import https from 'https';
 import fs from 'fs';
 import dateformat from 'dateformat';
-import { sortstreamerquerystats } from './sortstreamerstats.controller';
+import { sortStreamerStats } from './sortstreamerstats.controller';
 
 let options = {
     host: 'api.twitch.tv',
@@ -15,9 +15,8 @@ let options = {
     }
 };
 
-export function getstreamerstats() {
+export function getNewStreamerStats() {
   https.get(options, function(res) {
-        // console.log(res);
       let bodyChunks = [];
       res.on('data', function(chunk) {
           bodyChunks.push(chunk);
@@ -25,13 +24,14 @@ export function getstreamerstats() {
           let body = Buffer.concat(bodyChunks);
           body = JSON.parse(body);
           if (body === undefined || body.channel === undefined || !body) {
-            setTimeout(getstreamerstats, 5000);
+            setTimeout(getNewStreamerStats, 5000);
           }
-          sortstreamerquerystats(body);
+          console.log(body);
+          sortStreamerStats(body);
       })
   }).on('error', function(e) {
       console.log('ERROR: ' + e);
   });
 }
 
-setInterval(getstreamerstats, 60000);
+setInterval(getNewStreamerStats, 10000);

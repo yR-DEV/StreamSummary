@@ -8,6 +8,24 @@ import dateformat from 'dateformat';
 import StatsSchema from '../summarystats.model';
 import dotenv from 'dotenv';
 
+let saveStats = (statTick) => {
+    if(statTick.channels === undefined || statTick.viewers === undefined
+      || statTick === {} || statTick.status === 503 || statTick.status === 404) {
+        getStreamSummaryStats();
+    } else {
+        var statTickEntry = new StatsSchema(statTick);
+        return statTickEntry.save(function(err) {
+            if(err) {
+                console.log(err);
+            }
+        }).then(function(data) {
+            console.log('tick successfully saved in db');
+            // console.log(data);
+            return data;
+        });
+    }
+}
+
 let options = {
     host: 'api.twitch.tv',
     path: '/kraken/streams/summary',
@@ -18,7 +36,7 @@ let options = {
     }
 };
 
-export function getKrackenSummaryStats() {
+export function getStreamSummaryStats() {
     console.log('ticked from stats.controller');
     https.get(options, function(res) {
       // console.log(options);
@@ -41,21 +59,7 @@ export function getKrackenSummaryStats() {
         console.log('ERROR: ' + e);
     });
 }
-let saveStats = (statTick) => {
-    if(statTick.channels === undefined || statTick.viewers === undefined
-      || statTick === {} || statTick.status === 503 || statTick.status === 404) {
-        getKrackenSummaryStats();
-    } else {
-        var statTickEntry = new StatsSchema(statTick);
-        return statTickEntry.save(function(err) {
-            if(err) {
-                console.log(err);
-            }
-        }).then(function(data) {
-            console.log('tick successfully saved in db');
-            // console.log(data);
-            return data;
-        });
-    }
-};
-setInterval(getKrackenSummaryStats, 10000);
+
+
+
+setInterval(getStreamSummaryStats, 10000);

@@ -5,13 +5,13 @@ import express from 'express';
 var router = express.Router();
 
 //one route file
-import { graphstats, tablestats, recentstats } from './summarystats.controller';
+import { graphStats, tableStats, recentStats } from './summarystats.controller';
 
 var router = express.Router();
 
-router.get('/gettablestats', tablestats);
-router.get('/recentstats', recentstats);
-router.post('/channelstats', graphstats);
-router.post('/viewerstats', graphstats);
+router.get('/gettablestats', tableStats);
+router.get('/recentstats', recentStats);
+router.post('/channelstats', graphStats);
+router.post('/viewerstats', graphStats);
 
 module.exports = router;

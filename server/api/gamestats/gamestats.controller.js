@@ -4,6 +4,6 @@ import fs from 'fs';
 
 import { getGameStats } from './stats/savegamestats.controller';
 
-export function getgames(req, res) {
+export function getGames(req, res) {
   res.send(200);
 }

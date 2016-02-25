@@ -1,22 +1,18 @@
 'use-strict';
 
 import dateformat from 'dateformat';
-import { savedsortedresponse } from './querynewstreamerstats.controller';
-import { streamerisnew, insertnewstreamer, pushnewstreamerstats } from './querystreamerstats.controller';
+// import { savedsortedresponse } from './querynewstreamerstats.controller';
+import { isStreamerNew, saveNewStreamer, pushStreamerStats } from './querystreamerstats.controller';
 
-export function sortstreamerdata() {
-  return;
-}
-
-export function sortstreamerquerystats(data) {
+export function sortStreamerStats(data) {
   data.streams.forEach((gamer) => {
-    return streamerisnew(gamer).then((exist) => {
+    return isStreamerNew(gamer).then((exist) => {
       if(exist === null) {
-        return sortnewstreamer(gamer).then((newstreamer) => {
+        return sortNewStreamer(gamer).then((newstreamer) => {
           return newstreamer;
         });
       }
-      return sortandpushstreamerstats(gamer).then((updatedUser) => {
+      return sortNewStreamerStats(gamer).then((updatedUser) => {
         console.log(updatedUser);
         return updatedUser;
       });
@@ -24,7 +20,7 @@ export function sortstreamerquerystats(data) {
   });
 };
 
-export function sortnewstreamer(gamer) {
+export function sortNewStreamer(gamer) {
   let now = new Date;
   let newStreamerStats = {
     date: (dateformat(now, "h:MM:ss TT, mm/dd/yyyy, ") +"GMT-0700" ),
@@ -44,12 +40,12 @@ export function sortnewstreamer(gamer) {
     totalchannelviews: gamer.channel.views,
     streamerstats: [newStreamerStats],
   };
-  return insertnewstreamer(streamer).then((data) => {
+  return saveNewStreamer(streamer).then((data) => {
     return data;
   });
 };
 
-export function sortandpushstreamerstats(gamer) {
+export function sortNewStreamerStats(gamer) {
   let newGamer = gamer
   let now = new Date;
   let newStatSet = {
@@ -59,12 +55,12 @@ export function sortandpushstreamerstats(gamer) {
     channelviews: gamer.channel.views,
     currentgame: gamer.channel.game
   }
-  return pushnewstreamerstats(gamer, newStatSet).then((streamerUpdated) => {
+  return pushStreamerStats(gamer, newStatSet).then((streamerUpdated) => {
     return streamerUpdated;
   })
 }
 
-export function sortstreamerviewersandfollowers(gamers) {
+export function sortViewersAndFollowers(gamers) {
   let streamers = [];
   gamers.forEach((streamer) => {
     if(streamer.streamerstats.length > 1) {

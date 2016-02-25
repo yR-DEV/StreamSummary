@@ -1,7 +1,11 @@
 .streamers-table-jumbotron {
   width: 90%;
-  margin: 0 auto;
+  margin: 40px auto;
   border-radius: 15px;
+
+  #streamer-filter-buttons {
+    text-align: center;
+  }
 
   #streamers-table {
 
