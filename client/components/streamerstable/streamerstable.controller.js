@@ -18,7 +18,7 @@ class StreamersTableController {
       });
     }
     this.getStreamerData(this.streamerReq);
-    this.$timeout(this.getStreamerData, 6000)
+    this.$timeout(this.getStreamerData, 30000)
   }
 }
 

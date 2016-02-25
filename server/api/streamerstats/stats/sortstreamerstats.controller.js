@@ -1,7 +1,6 @@
 'use-strict';
 
 import dateformat from 'dateformat';
-// import { savedsortedresponse } from './querynewstreamerstats.controller';
 import { isStreamerNew, saveNewStreamer, pushStreamerStats } from './querystreamerstats.controller';
 
 export function sortStreamerStats(data) {
@@ -13,7 +12,6 @@ export function sortStreamerStats(data) {
         });
       }
       return sortNewStreamerStats(gamer).then((updatedUser) => {
-        // console.log(updatedUser);
         return updatedUser;
       });
     });
@@ -70,6 +68,5 @@ export function sortViewersAndFollowers(gamers) {
     }
     streamers.push(streamer);
   })
-  // console.log(streamers);
   return streamers;
 }

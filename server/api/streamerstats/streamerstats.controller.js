@@ -13,4 +13,4 @@ export function getStreamers(req, res) {
   });
 };
 
-setInterval(getNewStreamerStats, 10000);
+setInterval(getNewStreamerStats, 30000);
