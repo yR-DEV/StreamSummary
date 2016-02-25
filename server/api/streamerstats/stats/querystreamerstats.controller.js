@@ -11,7 +11,6 @@ export function isStreamerNew(gamer) {
 };
 
 export function saveNewStreamer(gamer) {
-  console.log('IN SAVE NEW STREAMER');
   let newStreamer = new StreamerSchema(gamer);
   return newStreamer.save((err) => {
     if(err) { console.log(err); }
@@ -35,35 +34,35 @@ export function pushStreamerStats(gamer, newStats) {
 export function getStreamerStats(req) {
   if(req.body === 'followers') {
     return StreamerSchema.find().sort({ "totalfollowers": -1 }).limit(6).then((data) => {
-      if(data === undefined) {
-        return false;
-      }
+      if(data === undefined) { return false; }
+      if(data.length < 6) { return 'Not enough records'; }
       return data;
     });
   }
-  if(req.body === 'averageviewers') {
-    return StreamerSchema.find().sort({ "averageviewers": -1 }).limit(6).then((data) => {
-      if(data === undefined) {
-        return false;
-      }
-      return data;
-    });
-  }
-  if(req.body === 'channelviews') {
-    return StreamerSchema.find().sort({ "totalchannelviews": -1 }).limit(6).then((data) => {
-      if(data === undefined) {
-        return false;
-      }
-      return data;
-    });
-  }
+  // if(req.body === 'averageviewers') {
+  //   return StreamerSchema.find().sort({ "averageviewers": -1 }).limit(6).then((data) => {
+  //     if(data === undefined) {
+  //       return false;
+  //     }
+  //     return data;
+  //   });
+  // }
+  // if(req.body === 'channelviews') {
+  //   return StreamerSchema.find().sort({ "totalchannelviews": -1 }).limit(6).then((data) => {
+  //     if(data === undefined) {
+  //       return false;
+  //     }
+  //     return data;
+  //   });
+  // }
 };
 
 export function updateViewersAndFollowers(updatedrecord, recentstatresponse) {
   return StreamerSchema.findOne({ "channelid": updatedrecord.channelid }).then((data) => {
     return data.update({  "totalfollowers": recentstatresponse.channel.followers,
-      "totalchannelviews": recentstatresponse.channel.views,
-      "averageviewers": ((updatedrecord.averageviewers + recentstatresponse.viewers) / 2)}).then((updatedaverages) => {
+                          "totalchannelviews": recentstatresponse.channel.views,
+                          "averageviewers": ((updatedrecord.averageviewers + recentstatresponse.viewers) / 2)})
+    .then((updatedaverages) => {
         return StreamerSchema.findOne({ "channelid": updatedrecord.channelid }).then((streamer) => {
           return streamer;
         })

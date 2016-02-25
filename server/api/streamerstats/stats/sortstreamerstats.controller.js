@@ -13,7 +13,7 @@ export function sortStreamerStats(data) {
         });
       }
       return sortNewStreamerStats(gamer).then((updatedUser) => {
-        console.log(updatedUser);
+        // console.log(updatedUser);
         return updatedUser;
       });
     });
@@ -70,6 +70,6 @@ export function sortViewersAndFollowers(gamers) {
     }
     streamers.push(streamer);
   })
-  console.log(streamers);
+  // console.log(streamers);
   return streamers;
 }

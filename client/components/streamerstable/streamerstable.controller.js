@@ -6,16 +6,19 @@ class StreamersTableController {
     this.$interval = $interval;
     this.$timeout = $timeout;
     this.streamers =[];
-    this.reqPost = { "filter": '' }
+    this.streamerReq = { "filter": 'followers' }
 
-    this.getStreamerData = (queryFilter) => {
-      this.reqPost.filter = queryFilter;
-      $http.post('/api/streamerstats/getstreamers', this.reqPost).then(response => {
+    this.setNewFilter = (query) => {
+      this.streamerReq.filter = query;
+    }
+
+    this.getStreamerData = () => {
+      $http.post('/api/streamerstats/getstreamers', this.streamerReq).then(response => {
         this.streamers = response.data;
       });
     }
-    // this.$timeout(this.getStreamerData, 6000)
-    // this.getStreamerData('followers');
+    this.getStreamerData(this.streamerReq);
+    this.$timeout(this.getStreamerData, 6000)
   }
 }
 

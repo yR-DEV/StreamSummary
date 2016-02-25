@@ -29,13 +29,10 @@ export function getNewStreamerStats() {
           if (body === undefined || body.channel === undefined || !body) {
             setTimeout(getNewStreamerStats, 5000);
           }
-          console.log('GET NEW STREAMER STATS');
-          console.log(body);
+          console.log('*** SUCCESSFUL GET STREAMERS ***');
           sortStreamerStats(body);
       })
   }).on('error', function(e) {
       console.log('ERROR: ' + e);
   });
 }
-// getNewStreamerStats();
-// setInterval(getNewStreamerStats, 3000);
